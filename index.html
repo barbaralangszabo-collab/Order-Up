@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Up! - British English Restaurant Practice</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;500;600;700&family=Comfortaa:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;800&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --primary: #49E8CC;
+    --primary-dark: #2FC7AC;
+    --title: #0EA893;
+    --secondary: #D98E82;
+    --secondary-dark: #C07268;
+    --gold: #A98FDB;
+    --gold-dark: #7C5FC2;
+    --sepia: #7C6B54;
+    --bg-paper: #FAF7F2;
+    --card-bg: #FFFDF9;
+    --card-border: #E8E2D5;
+    --dark: #4A4038;
+    --card-shadow: 0 4px 16px rgba(90,70,50,0.10);
+
+    /* Landing page palette (copied from the Idioms & Metaphors app) */
+    --hero-primary: #49E8CC;
+    --hero-ocean-teal: #2E7B8D;
+    --hero-warm-cream: #F8F7F2;
+    --hero-text-muted: #64748b;
+    --hero-font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --hero-font-display: 'Dancing Script', cursive;
+    --hero-brand-gradient: linear-gradient(135deg, #49E8CC 0%, #2E7B8D 100%);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+body { background-color: var(--bg-paper); color: var(--dark); padding: 18px; max-width: 1440px; margin: 0 auto; font-size: 19px; }
+h1, h2, h3 { font-family: 'Caveat', cursive; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+header {
+    background: var(--card-bg); padding: 10px 20px; border-radius: 16px;
+    box-shadow: var(--card-shadow); border: 1px solid var(--card-border);
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;
+}
+
+h1 { color: var(--title); font-size: 3rem; font-weight: 700; line-height: 1; }
+
+.btn-print {
+    background: radial-gradient(circle at 30% 30%, #DCCFF5, var(--gold) 55%, var(--gold-dark) 100%);
+    color: white; padding: 10px 18px; border-radius: 12px; font-weight: 700;
+    cursor: pointer; border: none; font-size: 1.02rem; box-shadow: 0 3px 8px rgba(143,121,196,0.35);
+}
+.btn-print:hover { background: radial-gradient(circle at 30% 30%, #C9B8ED, var(--gold-dark) 60%, #5F4699 100%); }
+
+details.app-guide {
+    background: #fdfaf5; border: 1px solid var(--gold); border-radius: 12px; padding: 10px 16px; margin-bottom: 16px;
+}
+details.app-guide summary {
+    font-weight: 700; color: var(--sepia); cursor: pointer; font-size: 1.06rem; outline: none;
+}
+details.app-guide p { font-size: 0.97rem; margin-top: 8px; line-height: 1.5; color: var(--dark); }
+
+.mode-nav { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+.mode-btn { flex: 1; min-width: 200px; padding: 12px; font-size: 1.22rem; font-family: 'Caveat', cursive; font-weight: 700; border-radius: 12px; border: 2px solid var(--card-border); background: var(--card-bg); cursor: pointer; }
+.mode-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary-dark); }
+
+.dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 950px) { .dashboard { grid-template-columns: 1fr; } }
+
+.panel { background: var(--card-bg); border-radius: 18px; padding: 18px; box-shadow: var(--card-shadow); border: 1px solid var(--card-border); }
+.panel-full { grid-column: 1 / -1; }
+
+.category-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
+.cat-btn { padding: 9px 13px; border-radius: 8px; border: 1px solid var(--card-border); background: #eee; cursor: pointer; font-weight: 600; font-size: 1rem; }
+.cat-btn.active { background: var(--primary); color: var(--dark); }
+.cat-meaning { font-size: 1.02rem; color: var(--secondary-dark); font-weight: 600; margin-bottom: 12px; font-style: italic; }
+
+/* Vertical flashcards */
+.dish-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 10px; }
+.flashcard-container { perspective: 1000px; height: 330px; cursor: pointer; }
+.flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s; border-radius: 12px; }
+.flashcard.flipped { transform: rotateY(180deg); }
+.card-front, .card-back {
+    position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    border-radius: 12px; border: 2px solid var(--card-border); background: #EAF6FF;
+    display: flex; flex-direction: column; overflow: hidden;
+}
+.card-back { background: #fdfaf5; transform: rotateY(180deg); justify-content: center; align-items: center; text-align: center; border-color: var(--gold); padding: 14px; }
+.hu-title { font-family: 'Caveat', cursive; font-size: 2rem; color: var(--secondary-dark); font-weight: bold; }
+.hu-desc { font-size: 1rem; color: var(--sepia); margin-top: 8px; padding: 0 4px; }
+.img-container { width: 100%; height: 240px; background-color: #efe9dc; position: relative; flex-shrink: 0; overflow: hidden; }
+.img-container img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.audio-btn {
+    position: absolute; top: 6px; right: 6px; background: rgba(255,255,255,0.92);
+    border: 1px solid var(--card-border); border-radius: 50%; width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem;
+    filter: saturate(0.9) drop-shadow(0 1px 1px rgba(0,0,0,0.15));
+}
+.audio-btn:hover { background: var(--primary); }
+.card-front .dish-name { font-weight: 700; font-size: 1.22rem; margin: 8px 8px 2px; text-align: center; line-height: 1.2; }
+.card-front .dish-tags { padding: 0 8px 8px; text-align: center; overflow: hidden; }
+.tag-badge { font-size: 0.74rem; background: #f0e6d2; padding: 1px 6px; border-radius: 4px; display: inline-block; margin: 2px; }
+
+/* Client cards & selectors */
+.client-card { background: #fdf5f2; border: 2px dashed var(--secondary); padding: 12px; border-radius: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; }
+.client-avatar {
+    width: 104px; height: 104px; border-radius: 50%;
+    object-fit: cover; object-position: center 20%; background: white;
+    border: 3px solid var(--secondary); flex-shrink: 0;
+}
+.client-select-box { margin-bottom: 12px; }
+.client-select-box label { display: block; font-weight: 700; font-size: 0.97rem; color: var(--sepia); margin-bottom: 6px; }
+.client-select-box select {
+    width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--card-border);
+    font-size: 1.02rem; font-family: inherit; background: white; cursor: pointer;
+}
+
+.instruction-box { background: #eafbf7; border: 1px solid var(--primary-dark); padding: 10px 14px; border-radius: 10px; margin-bottom: 12px; font-size: 0.95rem; color: #235c52; line-height: 1.5; }
+
+.chat-log { height: 400px; overflow-y: auto; padding: 12px; background: #fffefb; border: 1px solid var(--card-border); border-radius: 12px; display: flex; flex-direction: column; gap: 10px; }
+.chat-msg { max-width: 88%; padding: 11px 15px; border-radius: 14px; font-size: 1.12rem; line-height: 1.45; }
+.chat-icon { font-size: 1.5rem; vertical-align: -3px; margin-right: 2px; }
+.chat-msg.chef { align-self: flex-start; background: #f0f4f8; border: 1px solid #d0d7de; color: #24292f; }
+.chat-msg.client { align-self: flex-end; background: var(--primary); color: var(--dark); font-weight: 500; }
+
+.chat-choice-panel {
+    align-self: stretch; background: #fff; border: 2px solid var(--primary-dark);
+    border-radius: 12px; padding: 12px; margin: 4px 0; display: flex; flex-direction: column; gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.chat-choice-panel p { font-size: 0.92rem; font-weight: 700; color: var(--title); margin-bottom: 2px; }
+
+.action-bar { display: flex; gap: 8px; margin-top: 10px; }
+.btn-act { flex: 1; padding: 10px; border-radius: 8px; font-weight: 700; border: none; cursor: pointer; font-size: 0.92rem; color: white; }
+.btn-show { background: var(--secondary-dark); }
+
+/* Word-tile sentence ordering */
+.order-wrap { display: flex; flex-direction: column; gap: 10px; }
+.order-answer-row {
+    min-height: 50px; background: #fdfaf5; border: 2px dashed var(--gold); border-radius: 10px;
+    padding: 8px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+}
+.order-placeholder { color: #b8ac98; font-size: 0.92rem; font-style: italic; }
+.order-word-bank { display: flex; flex-wrap: wrap; gap: 6px; min-height: 40px; }
+.word-tile {
+    background: white; border: 1px solid var(--card-border); border-radius: 8px;
+    padding: 8px 12px; font-weight: 600; font-size: 1rem; color: var(--dark);
+    cursor: pointer; transition: all 0.15s;
+}
+.word-tile:hover { background: #eafbf7; border-color: var(--primary-dark); }
+.word-tile.placed { background: var(--primary); border-color: var(--primary-dark); color: var(--dark); }
+.placed-tile-wrap { display: inline-flex; align-items: center; gap: 2px; }
+.tile-move {
+    background: #f0f0f0; border: 1px solid var(--card-border); border-radius: 5px;
+    width: 26px; height: 26px; font-size: 0.8rem; cursor: pointer; color: var(--dark);
+    display: flex; align-items: center; justify-content: center; padding: 0;
+}
+.tile-move:hover { background: radial-gradient(circle at 30% 30%, #DCCFF5, var(--gold) 55%, var(--gold-dark) 100%); color: white; }
+.tile-move:disabled { opacity: 0.3; cursor: default; }
+.order-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.order-btn {
+    padding: 9px 15px; border-radius: 8px; border: 1px solid var(--card-border);
+    background: white; cursor: pointer; font-weight: 700; font-size: 0.92rem; color: var(--dark);
+}
+.order-check { background: radial-gradient(circle at 30% 30%, #8FF2DE, var(--title) 55%, #0B7A69 100%); color: white; border-color: var(--title); box-shadow: 0 3px 8px rgba(14,168,147,0.3); }
+.order-check:hover { background: radial-gradient(circle at 30% 30%, #7BE6CE, #0B7A69 60%, #075F52 100%); }
+.order-clear:hover { background: #f0f0f0; }
+.order-clue { padding: 11px 18px; font-size: 1rem; background: radial-gradient(circle at 30% 30%, #A8D4F5, #5AA9E6 55%, #3E86C4 100%); border-color: #3E86C4; color: white; box-shadow: 0 3px 8px rgba(62,134,196,0.3); }
+.order-clue:hover { background: radial-gradient(circle at 30% 30%, #93C6F0, #3E86C4 60%, #2E689C 100%); }
+.order-answer-btn { padding: 11px 18px; font-size: 1rem; background: radial-gradient(circle at 30% 30%, #DCCFF5, var(--gold) 55%, var(--gold-dark) 100%); border-color: var(--gold-dark); color: white; box-shadow: 0 3px 8px rgba(143,121,196,0.35); }
+.order-answer-btn:hover { background: radial-gradient(circle at 30% 30%, #C9B8ED, var(--gold-dark) 60%, #5F4699 100%); }
+.order-btn:disabled, .word-tile:disabled { opacity: 0.55; cursor: default; }
+.order-feedback { font-weight: 700; font-size: 0.95rem; min-height: 1.2em; }
+.order-feedback-correct { color: var(--title); }
+
+/* Gap Fill exercise: keep Back/Next and Show Clue/Show Answer the same small size */
+#gapArea .task-nav button,
+#gapArea .order-clue,
+#gapArea .order-answer-btn {
+    padding: 7px 12px;
+    font-size: 0.82rem;
+}
+.order-feedback-wrong { color: var(--secondary-dark); }
+
+/* Step navigation (Back / Next) for tasks */
+.task-nav { display: flex; gap: 6px; margin-top: 8px; }
+.task-nav button {
+    flex: 1; padding: 6px; border-radius: 7px; border: none;
+    cursor: pointer; font-weight: 700; font-size: 0.82rem; color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15); transition: transform 0.15s ease;
+}
+.task-nav button:first-child { background: radial-gradient(circle at 30% 30%, #F3C9BF, var(--secondary) 55%, var(--secondary-dark) 100%); }
+.task-nav button:last-child { background: radial-gradient(circle at 30% 30%, #8FF2DE, var(--primary) 55%, var(--primary-dark) 100%); color: var(--dark); }
+.task-nav button:hover { transform: translateY(-2px); }
+
+/* Dynamic phrase flashcard decks (words / phrases) */
+.deck-section { margin-top: 16px; }
+.deck-empty { font-size: 0.82rem; color: var(--sepia); font-style: italic; text-align: center; padding: 20px; }
+.phrase-deck-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.phrase-counter { font-size: 0.82rem; color: var(--sepia); font-weight: 600; }
+.phrase-card-container { perspective: 1000px; width: 300px; max-width: 90%; height: 200px; margin: 0 auto; cursor: pointer; }
+.phrase-card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
+.phrase-card.flipped { transform: rotateY(180deg); }
+.phrase-front, .phrase-back {
+    position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    border-radius: 16px; border: 2px solid var(--card-border); background: #EAF6FF;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    padding: 18px;
+}
+.phrase-front-text { font-weight: 700; font-size: 1.26rem; color: var(--dark); line-height: 1.4; overflow-wrap: break-word; }
+.phrase-hint { font-size: 0.78rem; color: #b8ac98; margin-top: 10px; font-style: italic; }
+.phrase-badge { background: var(--primary-dark); color: white; font-size: 0.92rem; font-weight: 700; padding: 6px 14px; border-radius: 24px; margin-bottom: 10px; display: inline-flex; align-items: center; gap: 6px; }
+.phrase-badge-icon { font-size: 1.35rem; }
+.phrase-back { background: #fdfaf5; transform: rotateY(180deg); border-color: var(--gold); font-family: 'Caveat', cursive; font-size: 1.6rem; color: var(--secondary-dark); font-weight: 700; }
+.phrase-nav { display: flex; gap: 8px; width: 300px; max-width: 90%; }
+.phrase-nav button { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--card-border); background: white; cursor: pointer; font-weight: 700; font-size: 0.85rem; color: var(--dark); }
+.phrase-nav button:hover { background: #f0f0f0; }
+.phrase-nav .btn-reset { background: var(--secondary); color: white; border-color: var(--secondary-dark); flex: 0 0 auto; padding: 9px 14px; }
+.phrase-nav .btn-reset:hover { background: var(--secondary-dark); }
+
+/* Mode 3: Gap Fill */
+.challenge-progress { font-size: 0.95rem; font-weight: 700; color: var(--sepia); margin-bottom: 10px; }
+.gap-sentence { font-size: 1.22rem; line-height: 1.6; background: #f0f4f8; border: 1px solid #d0d7de; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; }
+.gap-blank { display: inline-block; min-width: 70px; text-align: center; font-weight: 700; color: var(--title); border-bottom: 3px solid var(--gold); padding: 0 4px; }
+.gap-blank.gap-correct { color: var(--title); border-color: var(--title); }
+.gap-blank.gap-wrong { color: var(--secondary-dark); border-color: var(--secondary-dark); }
+.gap-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.gap-option-btn {
+    padding: 11px 17px; border-radius: 8px; border: 1px solid var(--card-border);
+    background: white; cursor: pointer; font-weight: 600; font-size: 1rem; color: var(--dark);
+}
+.gap-option-btn:hover { background: #eafbf7; border-color: var(--primary-dark); }
+.gap-option-btn.gap-selected { background: var(--primary); border-color: var(--primary-dark); }
+.gap-option-btn:disabled { opacity: 0.6; }
+
+/* Mode 4: Memory Game */
+.memory-toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+.memory-toolbar select { padding: 8px; border-radius: 6px; border: 1px solid var(--card-border); font-family: inherit; }
+.memory-toolbar button { padding: 8px 14px; border-radius: 8px; border: none; background: radial-gradient(circle at 30% 30%, #DCCFF5, var(--gold) 55%, var(--gold-dark) 100%); color: white; font-weight: 700; cursor: pointer; box-shadow: 0 3px 8px rgba(143,121,196,0.35); }
+.memory-toolbar button:hover { background: radial-gradient(circle at 30% 30%, #C9B8ED, var(--gold-dark) 60%, #5F4699 100%); }
+.memory-status { font-weight: 700; color: var(--title); font-family: 'Caveat', cursive; font-size: 1.55rem; min-height: 1.4em; text-align: center; margin-top: 10px; }
+.memory-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+.memory-card { perspective: 800px; height: 150px; cursor: pointer; }
+.memory-card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.45s; }
+.memory-card.memory-up .memory-card-inner { transform: rotateY(180deg); }
+.memory-card-front, .memory-card-back {
+    position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    border-radius: 10px; border: 2px solid var(--card-border); display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+}
+.memory-card-front { background: radial-gradient(circle at 35% 30%, #8FF2DE, var(--primary) 55%, var(--primary-dark) 100%); font-size: 3.1rem; filter: saturate(0.92) drop-shadow(0 1px 2px rgba(0,0,0,0.15)); }
+.memory-card-back { background: #EAF6FF; transform: rotateY(180deg); padding: 0; text-align: center; }
+.memory-card-back img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.memory-name { font-weight: 700; font-size: 1.05rem; color: var(--dark); padding: 0 6px; }
+.memory-card.memory-matched .memory-card-back { background: #eafbf7; border-color: var(--primary-dark); }
+
+/* Printable blank menu template */
+#printableMenu { display: none; }
+#printableMenuImg { display: none; }
+@media print {
+    body > *:not(#printableMenu) { display: none !important; }
+    #printableMenu { display: block !important; width: 100%; text-align: center; }
+    #printableMenuImg { display: inline-block !important; width: 100%; max-width: 100%; height: auto; page-break-inside: avoid; }
+}
+
+/* ============================================================
+   Landing page — first screen the visitor sees
+   (styling copied exactly from the Idioms & Metaphors app)
+   ============================================================ */
+.hidden-layout-state { display: none !important; }
+
+#hero-landing {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    z-index: 1;
+    background-color: var(--hero-warm-cream);
+    font-family: var(--hero-font-body);
+    margin: -18px -18px 18px -18px;
+}
+
+.hero-decor {
+    position: absolute;
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.9;
+    filter: drop-shadow(0 8px 14px rgba(46, 123, 141, 0.15));
+    user-select: none;
+}
+
+@keyframes hero-floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+.hero-float-slow { animation: hero-floaty 7s ease-in-out infinite; }
+.hero-float-med  { animation: hero-floaty 5.5s ease-in-out infinite reverse; }
+.hero-float-fast { animation: hero-floaty 4.2s ease-in-out infinite; }
+
+@media (max-width: 768px) {
+    .hero-decor-hide-sm { display: none; }
+    .hero-decor { opacity: 0.75; width: 50px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-float-slow, .hero-float-med, .hero-float-fast { animation: none; }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.hero-logo {
+    width: 260px;
+    height: auto;
+    filter: drop-shadow(0 10px 18px rgba(46, 123, 141, 0.18));
+}
+
+.hero-content h1 {
+    font-family: var(--hero-font-display);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+    background: var(--hero-brand-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--hero-primary);
+}
+
+.landing-edition-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--hero-brand-gradient);
+    color: #ffffff;
+    font-family: 'Comfortaa', var(--hero-font-body);
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.hero-content p {
+    font-family: var(--hero-font-body);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--hero-text-muted);
+    line-height: 1.6;
+    max-width: 640px;
+    margin: 0;
+}
+
+.hero-start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    padding: 16px 44px;
+    border-radius: 999px;
+    font-family: 'Comfortaa', var(--hero-font-body);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--hero-ocean-teal);
+    background: var(--hero-primary);
+    border: 3px solid #ffffff;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: 8px;
+}
+.hero-start-btn:hover {
+    color: #ffffff;
+    background: #33CDBE;
+    box-shadow: 0 18px 32px -14px rgba(51,205,190,0.9);
+    transform: translateY(-5px) scale(1.03);
+}
+.hero-start-btn span {
+    font-size: 22px;
+    transition: transform 0.22s ease;
+}
+.hero-start-btn:hover span { transform: translateX(4px); }
+
+.hero-footer {
+    position: absolute;
+    bottom: 16px;
+    z-index: 2;
+    font-size: 15px;
+    font-style: italic;
+    font-family: var(--hero-font-body);
+    color: #1B6E5C;
+}
+
+</style>
+</head>
+<body>
+
+    <!-- Landing page: first screen the visitor sees -->
+    <div id="hero-landing">
+        <div aria-hidden="true">
+            <img src="assets/landing-decor-1.png" alt="" class="hero-decor hero-float-slow" style="top: 10%; left: 25%; width: 68px; transform: rotate(-8deg); animation-delay: 0s;" onerror="this.style.display='none'">
+            <img src="assets/landing-decor-2.png" alt="" class="hero-decor hero-float-fast hero-decor-hide-sm" style="top: 27%; left: 13%; width: 95px; transform: rotate(11deg); animation-delay: 0.6s;" onerror="this.style.display='none'">
+            <img src="assets/landing-decor-3.png" alt="" class="hero-decor hero-float-med" style="top: 40%; left: 8%; width: 82px; transform: rotate(-7deg); animation-delay: 1.2s;" onerror="this.style.display='none'">
+            <img src="assets/landing-decor-4.png" alt="" class="hero-decor hero-float-fast" style="top: 60%; left: 12%; width: 100px; transform: rotate(-9deg); animation-delay: 3.4s;" onerror="this.style.display='none'">
+            <img src="assets/landing-decor-5.png" alt="" class="hero-decor hero-float-slow" style="bottom: 10%; left: 27%; width: 130px; transform: rotate(4deg); animation-delay: 5.8s;" onerror="this.style.display='none'">
+
+            <img src="assets/landing-decor-6.png" alt="" class="hero-decor hero-float-med" style="top: 10%; right: 22%; width: 128px; transform: rotate(9deg); animation-delay: 2.8s;" onerror="this.style.display='none'">
+            <img src="assets/landing-decor-7.png" alt="" class="hero-decor hero-float-slow hero-decor-hide-sm" style="top: 27%; right: 10%; width: 100px; transform: rotate(-13deg); animation-delay: 4.1s;" onerror="this.style.display='none'">
+            <img src="assets/landing-decor-8.png" alt="" class="hero-decor hero-float-slow" style="top: 45%; right: 6%; width: 128px; transform: rotate(7deg); animation-delay: 1.7s;" onerror="this.style.display='none'">
+            <img src="assets/landing-decor-9.png" alt="" class="hero-decor hero-float-fast" style="top: 64%; right: 9%; width: 122px; transform: rotate(6deg); animation-delay: 1.9s;" onerror="this.style.display='none'">
+            <img src="assets/landing-decor-10.png" alt="" class="hero-decor hero-float-slow" style="bottom: 12%; right: 16%; width: 134px; transform: rotate(-6deg); animation-delay: 5.2s;" onerror="this.style.display='none'">
+        </div>
+
+        <div class="hero-content">
+            <img src="assets/landing-logo.png" alt="Order Up! Logo" class="hero-logo hero-float-slow" onerror="this.style.display='none'">
+
+            <h1>Order Up!</h1>
+            <div class="landing-edition-badge">A2</div>
+
+            <p>
+                Step into restaurants serving cuisines from around the world! In this role play, you are the guest &mdash; each visit brings its own tastes, allergies, and requests &mdash; and it is your job to understand the menu, ask the right questions, and order with confidence in English.
+            </p>
+
+            <div style="margin-bottom: 28px;">
+                <button class="hero-start-btn" onclick="startHeroJourney()">
+                    Start Ordering
+                    <span aria-hidden="true">&rarr;</span>
+                </button>
+            </div>
+        </div>
+
+        <footer class="hero-footer">
+            Order Up! &copy; 2026 &bull; Developed by Barbara L&aacute;ng-Szab&oacute; &bull; Designed for A2 English Learners
+        </footer>
+    </div>
+
+    <div id="main-app-content" class="hidden-layout-state">
+
+    <header>
+        <div style="display:flex; align-items:center; gap:10px;">
+            <img src="assets/header-graphic.png" alt="" style="width:110px; height:auto; flex-shrink:0; filter: drop-shadow(0 3px 6px rgba(90,70,50,0.2));">
+            <div>
+                <h1>Order Up!</h1>
+                <div style="color:var(--sepia); font-weight:600;">Practice how to order in a restaurant. (Level A2)</div>
+            </div>
+        </div>
+        <button class="btn-print" onclick="printMenu()">🖨️ Print - Create Menu</button>
+    </header>
+
+    <details class="app-guide">
+        <summary>ℹ️ How to use this app (Click to open/close)</summary>
+        <p>
+            <b>1. Learn Dishes:</b> Pick a cuisine and a category. Click 🔊 to hear the word, or tap a card for the Hungarian translation.<br>
+            <b>2. Roleplay:</b> Pick a guest. Build their reply by tapping the words in order, then press Check. Move a word with ◀ ▶. Learn the guest's own words and phrases on the left.<br>
+            <b>3. Gap Fill:</b> Pick a guest. One word is missing from their sentence — tap the right word to fill the gap.<br>
+            <b>4. Memory Game:</b> Pick a cuisine and match each food photo with its name.<br>
+            <b>🖨️ Print your own menu:</b> Click "Print - Create Menu" to print a blank menu template — design your own restaurant's menu!
+        </p>
+    </details>
+
+    <div class="mode-nav">
+        <button class="mode-btn active" id="btnMode1" onclick="setMode('learn')">1️⃣ Learn Dishes</button>
+        <button class="mode-btn" id="btnMode2" onclick="setMode('chef')">2️⃣ Roleplay</button>
+        <button class="mode-btn" id="btnMode3" onclick="setMode('gapfill')">3️⃣ Gap Fill</button>
+        <button class="mode-btn" id="btnMode4" onclick="setMode('memory')">4️⃣ Memory Game</button>
+    </div>
+
+    <!-- MODE 1: Learn Dishes -->
+    <div id="modeLearn" class="dashboard">
+        <div class="panel panel-full">
+            <h2>🌍 1. Select Cuisine</h2>
+            <p style="font-size:0.85rem; color:var(--sepia); margin-bottom:6px;">Choose a country, then a category, to see its dishes.</p>
+            <select id="cuisineSelect" style="width: 100%; margin-top: 6px; padding: 8px; border-radius:6px;" onchange="onCuisineChange()">
+                <option value="Italian">Italian 🇮🇹</option>
+                <option value="French">French 🇫🇷</option>
+                <option value="Mexican">Mexican 🇲🇽</option>
+                <option value="Greek">Greek 🇬🇷</option>
+            </select>
+
+            <h2 style="margin-top: 14px;">📂 2. Select Category</h2>
+            <div class="category-tabs" id="categoryTabs"></div>
+            <div class="cat-meaning" id="catMeaningText"></div>
+
+            <p style="font-size:0.8rem; color:var(--sepia); text-align:center; margin-bottom:6px;">💡 Click 🔊 for audio, or flip the card to see the Hungarian translation!</p>
+            <div class="dish-grid" id="dishGrid"></div>
+        </div>
+    </div>
+
+    <!-- MODE 2: Roleplay -->
+    <div id="modeChef" class="dashboard" style="display: none;">
+        <div class="panel">
+            <h2>👤 Step 1: Choose Your Guest</h2>
+            <div class="instruction-box">Pick a guest. You are the waiter — help them order a starter, a main course, a dessert, and a drink.</div>
+            <div class="client-select-box">
+                <label for="clientSelect">Select a guest to serve:</label>
+                <select id="clientSelect" onchange="onClientSelectChange()"></select>
+            </div>
+            <div class="client-card" id="clientCard"></div>
+
+            <div class="deck-section">
+                <h3>📖 Words from this conversation</h3>
+                <p style="font-size:0.8rem; color:var(--sepia); margin-bottom:6px;">Tap to flip. Use Next / Back to browse, or Reset to shuffle.</p>
+                <div class="phrase-deck-wrap">
+                    <div class="phrase-counter" id="wordCounter"></div>
+                    <div id="wordDeck"></div>
+                    <div class="phrase-nav">
+                        <button onclick="deckBack('word')">◀ Back</button>
+                        <button onclick="deckNext('word')">Next ▶</button>
+                        <button class="btn-reset" onclick="resetDeck('word')">🔀 Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deck-section">
+                <h3>💬 Phrases from this conversation</h3>
+                <p style="font-size:0.8rem; color:var(--sepia); margin-bottom:6px;">Every line the waiter and the guest use, just for this dialogue.</p>
+                <div class="phrase-deck-wrap">
+                    <div class="phrase-counter" id="phraseCounter"></div>
+                    <div id="phraseDeck"></div>
+                    <div class="phrase-nav">
+                        <button onclick="deckBack('phrase')">◀ Back</button>
+                        <button onclick="deckNext('phrase')">Next ▶</button>
+                        <button class="btn-reset" onclick="resetDeck('phrase')">🔀 Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>💬 Step 2: The Conversation</h2>
+            <div class="instruction-box">Tap the words to build the guest's reply, in order. Press Check ✅. Correct answers move the story forward!</div>
+            <div class="chat-log" id="chatLog"></div>
+            <div class="task-nav">
+                <button onclick="orderingBack()">◀ Back</button>
+                <button onclick="showHint()">💡 Show Hint</button>
+                <button onclick="orderingNext()">Next ▶</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODE 3: Gap Fill -->
+    <div id="modeGapFill" class="dashboard" style="display: none;">
+        <div class="panel panel-full">
+            <h2>✏️ Gap Fill</h2>
+            <div class="instruction-box">Pick a guest. One word is missing from their sentence. Tap the correct word to fill the gap.</div>
+            <div class="client-select-box">
+                <label for="gapClientSelect">Select a guest:</label>
+                <select id="gapClientSelect" onchange="onGapClientChange()"></select>
+            </div>
+            <div class="client-card" id="gapClientCard"></div>
+            <div id="gapArea"></div>
+        </div>
+    </div>
+
+    <!-- MODE 4: Memory Game -->
+    <div id="modeMemory" class="dashboard" style="display: none;">
+        <div class="panel panel-full">
+            <h2>🧠 Memory Game</h2>
+            <div class="instruction-box">Pick a cuisine. Flip two cards at a time. Match each food's photo with its name!</div>
+            <div class="memory-toolbar">
+                <label for="memoryCuisineSelect" style="font-weight:700; font-size:0.85rem; color:var(--sepia);">Cuisine:</label>
+                <select id="memoryCuisineSelect" onchange="newMemoryGame()"></select>
+                <button onclick="newMemoryGame()">🔀 New Game</button>
+                <span id="memoryMoves" style="font-weight:700; color:var(--sepia); font-size:0.85rem;"></span>
+            </div>
+            <div class="memory-board" id="memoryBoard"></div>
+            <div class="memory-status" id="memoryStatus"></div>
+        </div>
+    </div>
+
+    </div>
+    <!-- /#main-app-content -->
+
+    <!-- Hidden printable blank menu, shown only by the print stylesheet -->
+    <div id="printableMenu">
+        <img id="printableMenuImg" src="assets/printable-menu-template.jpg" alt="Blank menu template">
+    </div>
+
+    <!-- Load App Scripts -->
+    <script>
+// ============================================================================
+// RESTAURANT ROLE-PLAY DATA — A2 English learners — "Order Up!"
+// ----------------------------------------------------------------------------
+// - Six cuisines x 24 dishes each, plain pronounceable English names.
+// - 9 clients, cartoon avatars (img is an inline SVG data URI, not a photo).
+// - Each dialogue step with a guest turn now has a single SHORT (6-11 word)
+//   target sentence in "answer" (plus "hu" translation) instead of a
+//   multiple-choice array — used for the sentence-ordering exercises.
+//   "chef" is the waiter's given line (null for reaction turns, where the
+//   waiter's line is generated dynamically by app.js after offering a dish).
+// - requiresSuggest steps unchanged: { category, filterTag }.
+// - Vocabulary/phrase flashcards are now built dynamically in app.js from
+//   the currently selected client's own dialogue (chef lines + answers),
+//   not a separate static bank — see buildDialoguePhraseDeck() in app.js.
+// ============================================================================
+
+const categories = ["Starters", "Mains", "Sides", "Desserts", "Drinks", "Special of the Week"];
+
+const categoryMeanings = {
+    "Starters": "Small dishes you eat first.",
+    "Mains": "Big dishes for your main meal.",
+    "Sides": "Small dishes you eat with your main dish.",
+    "Desserts": "Sweet food you eat at the end of the meal.",
+    "Drinks": "Cold or hot drinks with your food.",
+    "Special of the Week": "A new dish from the chef this week."
+};
+
+const italianDishes = {
+    Starters: [
+        { name: "Caprese Salad", tags: ["vegetarian", "gluten free", "light choice", "nut free"], hu: "Caprese saláta", huDesc: "Mozzarella, paradicsom és bazsalikom.", img: "assets/dishes/caprese-salad.jpg" },
+        { name: "Bruschetta", tags: ["vegetarian", "vegan", "light choice", "nut free", "spicy"], hu: "Paradicsomos pirítós", huDesc: "Pirított kenyér friss paradicsommal.", img: "https://images.unsplash.com/photo-1623962470382-a01d602b3a16?w=400" },
+        { name: "Garlic Bread", tags: ["vegetarian", "nut free", "hearty"], hu: "Fokhagymás kenyér", huDesc: "Ropogós fokhagymás kenyér.", img: "https://images.unsplash.com/photo-1556008531-57e6eefc7be4?w=400" },
+        { name: "Parma Ham and Melon", tags: ["gluten free", "lactose free", "not spicy", "nut free", "meat", "hearty"], hu: "Sonka és sárgadinnye", huDesc: "Vékonyra szeletelt sonka friss sárgadinnyével.", img: "assets/dishes/parma-ham-and-melon.jpg" }
+    ],
+    Mains: [
+        { name: "Margherita Pizza", tags: ["vegetarian", "not spicy", "nut free", "hearty"], hu: "Margherita pizza", huDesc: "Paradicsomszósz és mozzarella.", img: "assets/dishes/margherita-pizza.jpg" },
+        { name: "Spaghetti Bolognese", tags: ["lactose free", "not spicy", "nut free", "meat", "hearty"], hu: "Bolognai spagetti", huDesc: "Darált marhahúsos paradicsomszósz.", img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281288?w=400" },
+        { name: "Penne Pesto", tags: ["vegetarian", "light choice", "spicy"], hu: "Pestós penne", huDesc: "Tészta friss bazsalikomos pestóval (fenyőmaggal).", img: "https://images.unsplash.com/photo-1544899812-000334603501?w=400" },
+        { name: "Mushroom Risotto", tags: ["vegetarian", "gluten free", "nut free", "hearty"], hu: "Gombás rizottó", huDesc: "Krémes rizottó erdei gombákkal.", img: "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?w=400" }
+    ],
+    Sides: [
+        { name: "Rosemary Potatoes", tags: ["vegan", "gluten free", "lactose free", "nut free", "hearty"], hu: "Rozmaringos burgonya", huDesc: "Sült burgonya rozmaringgal.", img: "assets/dishes/rosemary-potatoes.jpg" },
+        { name: "Green Salad", tags: ["vegan", "gluten free", "light choice", "nut free"], hu: "Zöldsaláta", huDesc: "Friss vegyes zöldsaláta öntettel.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400" },
+        { name: "Grilled Veggies", tags: ["vegan", "gluten free", "light choice", "nut free"], hu: "Grillezett zöldségek", huDesc: "Sült cukkini, paprika és padlizsán.", img: "https://images.unsplash.com/photo-1470338950318-40320a722782?w=400" },
+        { name: "Focaccia Bread", tags: ["vegan", "lactose free", "nut free"], hu: "Focaccia kenyér", huDesc: "Olasz fűszeres kenyér.", img: "https://images.unsplash.com/photo-1619452357216-e88ca8119eeb?w=400" }
+    ],
+    Desserts: [
+        { name: "Tiramisu", tags: ["vegetarian", "nut free", "sweet"], hu: "Tiramisu", huDesc: "Kávés, krémes olasz sütemény.", img: "assets/dishes/tiramisu.jpg" },
+        { name: "Vanilla Cream Dessert", tags: ["gluten free", "vegetarian", "light choice", "nut free", "sweet"], hu: "Vaníliás krémdesszert", huDesc: "Könnyű, bársonyos vaníliakrém.", img: "assets/dishes/vanilla-cream-dessert.jpg" },
+        { name: "Chocolate Gelato", tags: ["gluten free", "vegetarian", "nut free", "sweet"], hu: "Csokoládé fagylalt", huDesc: "Sűrű krémes csokifagyi.", img: "assets/dishes/chocolate-gelato.jpg" },
+        { name: "Fresh Berries", tags: ["vegan", "gluten free", "light choice", "lactose free", "nut free", "sweet"], hu: "Friss bogyós gyümölcsök", huDesc: "Málna, eper és áfonya.", img: "assets/dishes/fresh-berries.jpg" }
+    ],
+    Drinks: [
+        { name: "Sparkling Water", tags: ["vegan", "gluten free", "light choice", "lactose free", "nut free"], hu: "Szénsavas ásványvíz", huDesc: "Hűsítő ásványvíz.", img: "assets/dishes/sparkling-water-it.jpg" },
+        { name: "Fresh Lemonade", tags: ["vegan", "gluten free", "light choice", "lactose free", "nut free", "sweet"], hu: "Friss limonádé", huDesc: "Citromos üdítő ital.", img: "assets/dishes/fresh-lemonade.jpg" },
+        { name: "Hot Chocolate", tags: ["vegetarian", "nut free", "sweet"], hu: "Forró csokoládé", huDesc: "Krémes meleg csoki.", img: "assets/dishes/hot-chocolate-it.jpg" },
+        { name: "Espresso Coffee", tags: ["vegan", "gluten free", "lactose free", "nut free"], hu: "Eszpresszó kávé", huDesc: "Erős feketekávé.", img: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400" }
+    ],
+    "Special of the Week": [
+        { name: "Beef Lasagne", tags: ["not spicy", "nut free", "meat", "hearty", "chef's pick"], hu: "Marha lasagne", huDesc: "Rétegezett tészta marhahússal.", img: "assets/dishes/beef-lasagne.jpg" },
+        { name: "Vegan Mushroom Pasta", tags: ["vegan", "lactose free", "light choice", "nut free", "chef's pick"], hu: "Vegán gombás tészta", huDesc: "Könnyű gombás tészta.", img: "https://images.unsplash.com/photo-1597692493647-25bd4240a3f2?w=400" },
+        { name: "Gluten-Free Pizza", tags: ["vegetarian", "gluten free", "nut free", "hearty", "chef's pick"], hu: "Gluténmentes pizza", huDesc: "Gluténmentes tésztájú pizza.", img: "assets/dishes/gluten-free-pizza.jpg" },
+        { name: "Truffle Pasta", tags: ["vegetarian", "not spicy", "nut free", "chef's pick"], hu: "Szarvasgombás tészta", huDesc: "Prémium tészta szarvasgombával.", img: "assets/dishes/truffle-pasta.jpg" }
+    ]
+};
+
+const frenchDishes = {
+    Starters: [
+        { name: "French Onion Soup", tags: ["vegetarian", "nut free", "hearty"], hu: "Francia hagymaleves", huDesc: "Karamellizált hagymaleves sajtos pirítóssal.", img: "assets/dishes/french-onion-soup.jpg" },
+        { name: "Mixed Vegetable Stew", tags: ["vegetarian", "vegan", "gluten free", "light choice", "nut free", "spicy"], hu: "Vegyes zöldségpörkölt", huDesc: "Provence-i stílusú párolt zöldségek.", img: "assets/dishes/mixed-vegetable-stew.jpg" },
+        { name: "Toasted Ham and Cheese", tags: ["lactose free", "not spicy", "nut free", "meat", "hearty"], hu: "Sonkás-sajtos pirítós", huDesc: "Grillezett szendvics sonkával és sajttal.", img: "assets/dishes/toasted-ham-and-cheese.jpg" },
+        { name: "Garlic Mushrooms", tags: ["gluten free", "not spicy", "nut free"], hu: "Fokhagymás gomba", huDesc: "Vajban sült gomba fokhagymával.", img: "https://images.unsplash.com/photo-1619535860434-ba1d8fa12536?w=400" }
+    ],
+    Mains: [
+        { name: "Chicken in Wine Sauce", tags: ["lactose free", "not spicy", "nut free", "meat", "hearty"], hu: "Borban párolt csirke", huDesc: "Vörösborban lassan párolt csirke.", img: "assets/dishes/chicken-in-wine-sauce.jpg" },
+        { name: "Vegetable Stew with Rice", tags: ["vegetarian", "vegan", "gluten free", "light choice", "nut free"], hu: "Zöldségpörkölt rizzsel", huDesc: "Párolt zöldségek rizzsel.", img: "assets/dishes/vegetable-stew-with-rice.jpg" },
+        { name: "Vegetable Quiche", tags: ["vegetarian", "nut free", "hearty", "spicy"], hu: "Zöldséges quiche", huDesc: "Vajas tésztában sült zöldséges torta.", img: "assets/dishes/vegetable-quiche.jpg" },
+        { name: "Baked Salmon Parcel", tags: ["gluten free", "lactose free", "light choice", "nut free", "not spicy"], hu: "Papírban sült lazac", huDesc: "Lazac zöldségekkel, sütőpapírban sütve.", img: "assets/dishes/baked-salmon-parcel.jpg" }
+    ],
+    Sides: [
+        { name: "French Fries", tags: ["vegan", "vegetarian", "gluten free", "lactose free", "nut free", "hearty"], hu: "Sült krumpli", huDesc: "Ropogós francia sült krumpli.", img: "assets/dishes/french-fries.jpg" },
+        { name: "Green Beans with Almonds", tags: ["vegetarian", "gluten free", "light choice"], hu: "Mandulás zöldbab", huDesc: "Vajban sült zöldbab pirított mandulával.", img: "assets/dishes/green-beans-with-almonds.jpg" },
+        { name: "Steamed Green Beans", tags: ["vegan", "gluten free", "lactose free", "light choice", "nut free"], hu: "Párolt zöldbab", huDesc: "Ropogósra párolt zöldbab.", img: "assets/dishes/steamed-green-beans.jpg" },
+        { name: "Baguette", tags: ["vegetarian", "nut free"], hu: "Bagett", huDesc: "Ropogós héjú francia kenyér.", img: "assets/dishes/baguette.jpg" }
+    ],
+    Desserts: [
+        { name: "Caramel Custard", tags: ["vegetarian", "gluten free", "nut free", "sweet"], hu: "Karamellkrém", huDesc: "Karamellizált tetejű vaníliakrém.", img: "assets/dishes/caramel-custard.jpg" },
+        { name: "Upside-Down Apple Tart", tags: ["vegetarian", "nut free", "sweet"], hu: "Fordított almás pite", huDesc: "Karamellizált almával sütött pite.", img: "assets/dishes/upside-down-apple-tart.jpg" },
+        { name: "Fruit Sorbet", tags: ["vegan", "gluten free", "lactose free", "light choice", "nut free", "sweet"], hu: "Gyümölcsszorbet", huDesc: "Friss gyümölcsből készült szorbet.", img: "assets/dishes/fruit-sorbet.jpg" },
+        { name: "French Almond Cookies", tags: ["vegetarian", "gluten free", "sweet"], hu: "Francia mandulás sütemény", huDesc: "Színes, mandulás franciasütemény.", img: "assets/dishes/french-almond-cookies.jpg" }
+    ],
+    Drinks: [
+        { name: "Sparkling Water with Lemon", tags: ["vegan", "gluten free", "light choice", "lactose free", "nut free"], hu: "Szénsavas víz citrommal", huDesc: "Hűsítő ásványvíz citromszelettel.", img: "assets/dishes/sparkling-water-lemon.jpg" },
+        { name: "Blackcurrant Cordial", tags: ["vegan", "gluten free", "light choice", "lactose free", "nut free", "sweet"], hu: "Feketeribizli szörp", huDesc: "Édes, gyümölcsös üdítő.", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400" },
+        { name: "Coffee with Milk", tags: ["vegetarian", "nut free"], hu: "Tejeskávé", huDesc: "Erős kávé forró tejjel.", img: "assets/dishes/coffee-with-milk.jpg" },
+        { name: "Espresso", tags: ["vegan", "gluten free", "lactose free", "nut free"], hu: "Eszpresszó", huDesc: "Erős feketekávé.", img: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400" }
+    ],
+    "Special of the Week": [
+        { name: "Slow-Roasted Duck", tags: ["not spicy", "nut free", "meat", "hearty", "chef's pick"], hu: "Lassan sült kacsa", huDesc: "Ropogós bőrű, lassan sült kacsacomb.", img: "assets/dishes/slow-roasted-duck.jpg" },
+        { name: "Vegan Vegetable Tart", tags: ["vegan", "lactose free", "light choice", "nut free", "chef's pick"], hu: "Vegán zöldségtorta", huDesc: "Leveles tésztás vegán zöldségtorta.", img: "assets/dishes/vegan-vegetable-tart.jpg" },
+        { name: "Gluten-Free Pancakes", tags: ["vegetarian", "gluten free", "nut free", "chef's pick"], hu: "Gluténmentes palacsinta", huDesc: "Vékony gluténmentes palacsinta.", img: "assets/dishes/gluten-free-pancakes.jpg" },
+        { name: "French Fish Soup", tags: ["gluten free", "lactose free", "not spicy", "nut free", "chef's pick"], hu: "Francia halleves", huDesc: "Provence-i fűszeres halleves.", img: "assets/dishes/french-fish-soup.jpg" }
+    ]
+};
+
+const mexicanDishes = {
+    Starters: [
+        { name: "Melted Cheese Dip", tags: ["vegetarian", "nut free", "hearty"], hu: "Olvasztott sajtmártás", huDesc: "Forró, olvasztott sajt tortillával.", img: "assets/dishes/melted-cheese-dip.jpg" },
+        { name: "Guacamole with Veggie Sticks", tags: ["vegetarian", "vegan", "gluten free", "light choice", "nut free"], hu: "Guacamole zöldségrudakkal", huDesc: "Krémes avokádószósz friss zöldségekkel.", img: "assets/dishes/guacamole-with-veggie-sticks.jpg" },
+        { name: "Grilled Beef Skewers", tags: ["lactose free", "nut free", "meat", "hearty", "spicy"], hu: "Grillezett marhanyárs", huDesc: "Pácolt, grillezett marhahús nyárson.", img: "assets/dishes/grilled-beef-skewers.jpg" },
+        { name: "Ceviche", tags: ["gluten free", "lactose free", "light choice", "nut free", "not spicy"], hu: "Ceviche", huDesc: "Lime-ban pácolt friss hal.", img: "assets/dishes/ceviche.jpg" }
+    ],
+    Mains: [
+        { name: "Chicken Enchiladas", tags: ["nut free", "meat", "hearty", "not spicy"], hu: "Csirkés enchilada", huDesc: "Tortillába tekert csirke, szósszal leöntve.", img: "assets/dishes/chicken-enchiladas.jpg" },
+        { name: "Vegetable Fajitas", tags: ["vegetarian", "vegan", "gluten free", "light choice", "nut free", "spicy"], hu: "Zöldséges fajita", huDesc: "Serpenyőben sült zöldségek tortillával.", img: "assets/dishes/vegetable-fajitas.jpg" },
+        { name: "Cheese Quesadilla", tags: ["vegetarian", "nut free", "hearty"], hu: "Sajtos quesadilla", huDesc: "Sült tortilla olvasztott sajttal.", img: "assets/dishes/cheese-quesadilla.jpg" },
+        { name: "Grilled Fish Tacos", tags: ["gluten free", "lactose free", "light choice", "nut free", "not spicy"], hu: "Grillezett halas taco", huDesc: "Kukoricatortilla grillezett hallal.", img: "assets/dishes/grilled-fish-tacos.jpg" }
+    ],
+    Sides: [
+        { name: "Mexican Rice", tags: ["vegan", "vegetarian", "gluten free", "lactose free", "nut free"], hu: "Mexikói rizs", huDesc: "Paradicsomos, fűszeres rizs.", img: "assets/dishes/mexican-rice.jpg" },
+        { name: "Refried Beans", tags: ["vegetarian", "gluten free", "nut free", "hearty"], hu: "Pürésített bab", huDesc: "Krémes, fűszeres babpüré.", img: "assets/dishes/refried-beans.jpg" },
+        { name: "Grilled Corn", tags: ["vegetarian", "gluten free", "nut free"], hu: "Grillezett kukorica", huDesc: "Grillezett kukorica sajttal és fűszerekkel.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400" },
+        { name: "Corn Tortillas", tags: ["vegan", "vegetarian", "gluten free", "lactose free", "nut free"], hu: "Kukoricatortilla", huDesc: "Puha, friss kukoricalepény.", img: "assets/dishes/corn-tortillas.jpg" }
+    ],
+    Desserts: [
+        { name: "Churros", tags: ["vegetarian", "nut free", "sweet"], hu: "Churros", huDesc: "Ropogós, cukros sült tészta.", img: "assets/dishes/churros.jpg" },
+        { name: "Flan", tags: ["vegetarian", "gluten free", "nut free", "sweet"], hu: "Flan", huDesc: "Karamellás tejsodó.", img: "assets/dishes/flan.jpg" },
+        { name: "Mango Sorbet", tags: ["vegan", "gluten free", "lactose free", "light choice", "nut free", "sweet"], hu: "Mangószorbet", huDesc: "Friss mangóból készült szorbet.", img: "assets/dishes/mango-sorbet.jpg" },
+        { name: "Three Milk Cake", tags: ["vegetarian", "nut free", "sweet"], hu: "Háromtejes torta", huDesc: "Háromféle tejjel átitatott piskóta.", img: "assets/dishes/three-milk-cake.jpg" }
+    ],
+    Drinks: [
+        { name: "Sparkling Water with Lime", tags: ["vegan", "gluten free", "light choice", "lactose free", "nut free"], hu: "Szénsavas víz lime-mal", huDesc: "Hűsítő ásványvíz lime-mal.", img: "assets/dishes/sparkling-water-with-lime.jpg" },
+        { name: "Hibiscus Water", tags: ["vegan", "gluten free", "light choice", "lactose free", "nut free", "sweet"], hu: "Hibiszkuszital", huDesc: "Hűsítő, virágos ital.", img: "assets/dishes/hibiscus-water.jpg" },
+        { name: "Mexican Hot Chocolate", tags: ["vegetarian", "nut free", "sweet"], hu: "Mexikói forró csoki", huDesc: "Fahéjas forró csokoládé.", img: "assets/dishes/mexican-hot-chocolate.jpg" },
+        { name: "Horchata", tags: ["vegetarian", "gluten free", "nut free", "sweet"], hu: "Horchata", huDesc: "Fahéjas rizsital.", img: "assets/dishes/horchata.jpg" }
+    ],
+    "Special of the Week": [
+        { name: "Chicken Mole", tags: ["not spicy", "meat", "hearty", "chef's pick"], hu: "Csirke mole szószban", huDesc: "Csokoládés-fűszeres mole szósz csirkével.", img: "assets/dishes/chicken-mole.jpg" },
+        { name: "Vegan Tacos", tags: ["vegan", "lactose free", "light choice", "nut free", "chef's pick"], hu: "Vegán taco", huDesc: "Fűszeres zöldségek tortillában.", img: "assets/dishes/vegan-tacos.jpg" },
+        { name: "Tamales", tags: ["vegetarian", "gluten free", "nut free", "chef's pick"], hu: "Tamale", huDesc: "Kukoricalevélben párolt kukoricatészta.", img: "assets/dishes/tamales.jpg" },
+        { name: "Stuffed Poblano Peppers", tags: ["vegetarian", "not spicy", "chef's pick"], hu: "Töltött poblano paprika", huDesc: "Töltött poblano paprika krémszósszal.", img: "assets/dishes/stuffed-poblano-peppers.jpg" }
+    ]
+};
+
+const greekDishes = {
+    Starters: [
+        { name: "Tzatziki with Pita", tags: ["vegetarian", "nut free", "hearty"], hu: "Tzatziki pitával", huDesc: "Görög joghurtos uborkamártás pitával.", img: "assets/dishes/tzatziki-with-pita.jpg" },
+        { name: "Greek Salad", tags: ["vegetarian", "gluten free", "light choice", "nut free"], hu: "Görög saláta", huDesc: "Paradicsom, uborka, olívabogyó és feta.", img: "https://images.unsplash.com/photo-1606735584785-1848fdcaea57?w=400" },
+        { name: "Dolmades", tags: ["vegan", "vegetarian", "gluten free", "lactose free", "light choice", "nut free", "spicy"], hu: "Dolmades", huDesc: "Rizzsel töltött szőlőlevél.", img: "assets/dishes/dolmades.jpg" },
+        { name: "Souvlaki", tags: ["gluten free", "lactose free", "not spicy", "nut free", "meat", "hearty"], hu: "Szuvlaki", huDesc: "Grillezett húsnyárs fűszerekkel.", img: "assets/dishes/souvlaki.jpg" }
+    ],
+    Mains: [
+        { name: "Moussaka", tags: ["vegetarian", "nut free", "hearty"], hu: "Muszaka", huDesc: "Padlizsános-krumplis rakott étel bésamellel.", img: "assets/dishes/moussaka.jpg" },
+        { name: "Grilled Chicken", tags: ["lactose free", "not spicy", "nut free", "meat", "hearty"], hu: "Grillezett csirke", huDesc: "Grillezett csirkenyárs köretekkel.", img: "assets/dishes/grilled-chicken.jpg" },
+        { name: "Gemista", tags: ["vegan", "vegetarian", "gluten free", "light choice", "nut free", "spicy"], hu: "Gemista", huDesc: "Rizzsel töltött zöldségek.", img: "assets/dishes/gemista.jpg" },
+        { name: "Grilled Sea Bass", tags: ["gluten free", "lactose free", "light choice", "nut free", "not spicy"], hu: "Grillezett tengeri sügér", huDesc: "Olívaolajos, citromos grillezett hal.", img: "assets/dishes/grilled-sea-bass.jpg" }
+    ],
+    Sides: [
+        { name: "Greek Roasted Potatoes", tags: ["vegan", "vegetarian", "gluten free", "lactose free", "nut free", "hearty"], hu: "Görög sült burgonya", huDesc: "Citromos, oregánós sült krumpli.", img: "assets/dishes/greek-roasted-potatoes.jpg" },
+        { name: "Cucumber Tomato Salad", tags: ["vegan", "vegetarian", "gluten free", "lactose free", "light choice", "nut free"], hu: "Uborka-paradicsom saláta", huDesc: "Friss, egyszerű nyári saláta.", img: "assets/dishes/cucumber-tomato-salad.jpg" },
+        { name: "Spanakopita", tags: ["vegetarian", "nut free"], hu: "Spanakopita", huDesc: "Leveles tésztás spenótos-sajtos pite.", img: "assets/dishes/spanakopita.jpg" },
+        { name: "Warm Pita Bread", tags: ["vegetarian", "nut free"], hu: "Meleg pita", huDesc: "Puha, meleg görög lepénykenyér.", img: "assets/dishes/warm-pita-bread.jpg" }
+    ],
+    Desserts: [
+        { name: "Baklava", tags: ["vegetarian", "sweet"], hu: "Baklava", huDesc: "Diós-mézes leveles tészta.", img: "assets/dishes/baklava.jpg" },
+        { name: "Greek Yogurt with Honey", tags: ["vegetarian", "gluten free", "nut free", "sweet"], hu: "Görög joghurt mézzel", huDesc: "Sűrű joghurt friss mézzel.", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400" },
+        { name: "Fresh Fruit Salad", tags: ["vegan", "gluten free", "lactose free", "light choice", "nut free", "sweet"], hu: "Friss gyümölcssaláta", huDesc: "Idényjellegű friss gyümölcsök.", img: "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=400" },
+        { name: "Loukoumades", tags: ["vegetarian", "nut free", "sweet"], hu: "Lukumádesz", huDesc: "Mézes, fahéjas sült fánk.", img: "assets/dishes/loukoumades.jpg" }
+    ],
+    Drinks: [
+        { name: "Sparkling Water with Lemon", tags: ["vegan", "gluten free", "light choice", "lactose free", "nut free"], hu: "Szénsavas víz citrommal", huDesc: "Hűsítő ásványvíz citromszelettel.", img: "assets/dishes/sparkling-water-lemon-gr.jpg" },
+        { name: "Fresh Orange Juice", tags: ["vegan", "gluten free", "light choice", "lactose free", "nut free", "sweet"], hu: "Friss narancslé", huDesc: "Frissen facsart narancslé.", img: "assets/dishes/fresh-orange-juice.jpg" },
+        { name: "Greek Iced Coffee", tags: ["vegan", "gluten free", "lactose free", "nut free"], hu: "Görög jegeskávé", huDesc: "Habos, jeges kávé.", img: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400" },
+        { name: "Greek Mountain Tea with Honey", tags: ["vegetarian", "gluten free", "nut free", "sweet"], hu: "Görög hegyi tea mézzel", huDesc: "Gyógynövényes tea mézzel.", img: "assets/dishes/greek-mountain-tea-with-honey.jpg" }
+    ],
+    "Special of the Week": [
+        { name: "Slow-Roasted Lamb", tags: ["not spicy", "nut free", "meat", "hearty", "chef's pick"], hu: "Lassan sült bárány", huDesc: "Lassan sült, fűszeres bárányhús.", img: "https://images.unsplash.com/photo-1558199141-391d935676f0?w=400" },
+        { name: "Vegan Roasted Vegetables", tags: ["vegan", "lactose free", "light choice", "nut free", "chef's pick"], hu: "Vegán sült zöldségek", huDesc: "Sült zöldségek olívaolajjal.", img: "https://images.unsplash.com/photo-1470338950318-40320a722782?w=400" },
+        { name: "Grilled Octopus", tags: ["gluten free", "lactose free", "nut free", "chef's pick"], hu: "Grillezett polip", huDesc: "Olívaolajos, citromos grillezett polip.", img: "assets/dishes/grilled-octopus.jpg" },
+        { name: "Pastitsio", tags: ["vegetarian", "nut free", "hearty", "chef's pick"], hu: "Pasztíció", huDesc: "Görög rakott tészta bésamellel.", img: "https://images.unsplash.com/photo-1597692493647-25bd4240a3f2?w=400" }
+    ]
+};
+
+const menuData = {
+    Italian: italianDishes,
+    French: frenchDishes,
+    Mexican: mexicanDishes,
+    Greek: greekDishes
+};
+
+// Hungarian translations for the waiter's lines, used on the back of the
+// "Phrases from this conversation" flashcards.
+const CHEF_HU = {
+    "Hello! Are you ready to order?": "Jó napot! Készen áll a rendelésre?",
+    "What would you like for a starter?": "Mit kérne előételnek?",
+    "What would you like for your main course?": "Mit kérne főételnek?",
+    "Would you like a dessert as well?": "Kérne desszertet is?",
+    "And to drink?": "És inni mit hozhatok?",
+    "Good afternoon! May I take your order?": "Jó napot! Felvehetem a rendelését?",
+    "And for your main course?": "És a főétel?",
+    "Good afternoon! What can I get you today?": "Jó napot! Mit hozhatok ma?",
+    "What about your main course?": "És a főétellel mi legyen?",
+    "Would you like a light dessert too?": "Kérne egy könnyű desszertet is?",
+    "Good afternoon! Table for one, is that right?": "Jó napot! Egy főre az asztal, ugye?",
+    "Would you like a nut-free dessert too?": "Kérne egy mogyorómentes desszertet is?",
+    "Good afternoon! Hungry today?": "Jó napot! Éhes ma?",
+    "And your main course?": "És a főétele?",
+    "Room for a dessert after all that?": "Van még hely egy desszertnek mindezek után?",
+    "Good afternoon! Ready to order?": "Jó napot! Készen áll rendelni?",
+    "Room for dessert as well?": "Van hely desszertre is?"
+};
+
+const gapFill = {
+    "Emma": [
+        { sentence: "Hello, I am a strict ___.", answer: "vegetarian", hu: "vegetáriánus", options: ["vegetarian", "vegan", "carnivore"] },
+        { sentence: "Could I have a ___ starter, please?", answer: "meat-free", hu: "hústalan", options: ["meat-free", "spicy", "deep-fried"] },
+        { sentence: "What ___ main dishes do you have?", answer: "plant-based", hu: "növényi alapú", options: ["plant-based", "grilled", "smoked"] },
+        { sentence: "Is there a nice vegetarian ___?", answer: "dessert", hu: "desszert", options: ["dessert", "side dish", "soup"] },
+        { sentence: "What would you recommend to ___?", answer: "drink", hu: "inni", options: ["drink", "order", "share"] }
+    ],
+    "Marco": [
+        { sentence: "Hi, I really love eating ___!", answer: "meat", hu: "hús", options: ["meat", "salad", "soup"] },
+        { sentence: "What's your ___ starter today?", answer: "meatiest", hu: "leghúsosabb", options: ["meatiest", "lightest", "freshest"] },
+        { sentence: "Give me your heartiest, ___ main course.", answer: "meaty", hu: "húsos", options: ["meaty", "mild", "delicate"] },
+        { sentence: "What ___ would go well after that?", answer: "dessert", hu: "desszert", options: ["dessert", "salad", "starter"] },
+        { sentence: "What strong ___ would you suggest?", answer: "drink", hu: "ital", options: ["drink", "snack", "sauce"] }
+    ],
+    "Lucas": [
+        { sentence: "Hello, I am ___ intolerant, please.", answer: "lactose", hu: "laktóz", options: ["lactose", "gluten", "nut"] },
+        { sentence: "Do you have a ___ starter?", answer: "dairy-free", hu: "tejmentes", options: ["dairy-free", "sugar-free", "gluten-free"] },
+        { sentence: "Could I have a ___ main course?", answer: "milk-free", hu: "tejmentes", options: ["milk-free", "nut-free", "spicy"] },
+        { sentence: "Is there a dessert without any ___?", answer: "dairy", hu: "tejtermék", options: ["dairy", "sugar", "gluten"] },
+        { sentence: "What ___ drinks do you have?", answer: "plant-based", hu: "növényi alapú", options: ["plant-based", "sugary", "fizzy"] }
+    ],
+    "Grace": [
+        { sentence: "Hello, I have a huge ___ today!", answer: "appetite", hu: "étvágy", options: ["appetite", "thirst", "craving"] },
+        { sentence: "Could I have a really ___ starter?", answer: "filling", hu: "laktató", options: ["filling", "refreshing", "delicate"] },
+        { sentence: "What's your most ___ main course?", answer: "substantial", hu: "tartalmas", options: ["substantial", "delicate", "light"] },
+        { sentence: "Is there room for a big ___?", answer: "dessert", hu: "desszert", options: ["dessert", "starter", "side dish"] },
+        { sentence: "Could I have a ___ drink, please?", answer: "large", hu: "nagy", options: ["large", "small", "weak"] }
+    ],
+    "Sophia": [
+        { sentence: "Hello, I'd like a ___ meal today.", answer: "light", hu: "könnyű", options: ["light", "heavy", "filling"] },
+        { sentence: "Could you show me a ___ starter?", answer: "small", hu: "kicsi", options: ["small", "huge", "meaty"] },
+        { sentence: "What's your ___ main course today?", answer: "lightest", hu: "legkönnyebb", options: ["lightest", "heaviest", "spiciest"] },
+        { sentence: "Do you have a ___ dessert option?", answer: "healthy", hu: "egészséges", options: ["healthy", "sugary", "giant"] },
+        { sentence: "Could I have a ___ drink, please?", answer: "refreshing", hu: "frissítő", options: ["refreshing", "heavy", "fizzy"] }
+    ],
+    "Daniel": [
+        { sentence: "Hello, I have a serious ___ allergy.", answer: "nut", hu: "dió", options: ["nut", "dairy", "gluten"] },
+        { sentence: "Could I have a ___ starter, please?", answer: "nut-free", hu: "mogyorómentes", options: ["nut-free", "dairy-free", "spicy"] },
+        { sentence: "What ___ main courses do you have?", answer: "peanut-free", hu: "mogyorómentes", options: ["peanut-free", "sugar-free", "spicy"] },
+        { sentence: "Is there a ___ dessert today?", answer: "safe", hu: "biztonságos", options: ["safe", "sugary", "giant"] },
+        { sentence: "Could I have a ___ drink, please?", answer: "refreshing", hu: "frissítő", options: ["refreshing", "hot", "sour"] }
+    ]
+};
+
+const clients = [
+    {
+        name: "Emma",
+        need: "vegetarian",
+        img: "assets/client-emma.jpg",
+        dialogue: [
+            { chef: "Hello! Are you ready to order?", answer: "Hello, I am a strict vegetarian.", hu: "Helló, szigorú vegetáriánus vagyok." },
+            { chef: "What would you like for a starter?", answer: "Could I have a vegetarian starter, please?", hu: "Kaphatnék egy vegetáriánus előételt, kérem?" },
+            { requiresSuggest: true, category: "Starters", filterTag: "vegetarian" },
+            { chef: null, answer: "That sounds lovely, thank you!", hu: "Ez nagyon jól hangzik, köszönöm!" },
+            { chef: "What would you like for your main course?", answer: "What vegetarian main dishes do you have?", hu: "Milyen vegetáriánus főételeik vannak?" },
+            { requiresSuggest: true, category: "Mains", filterTag: "vegetarian" },
+            { chef: null, answer: "Perfect, that's just what I wanted.", hu: "Tökéletes, pont ezt akartam." },
+            { chef: "Would you like a dessert as well?", answer: "Is there a nice vegetarian dessert?", hu: "Van egy finom vegetáriánus desszertjük?" },
+            { requiresSuggest: true, category: "Desserts", filterTag: "vegetarian" },
+            { chef: null, answer: "Wonderful, I can't wait to try it!", hu: "Csodálatos, alig várom, hogy kipróbáljam!" },
+            { chef: "And to drink?", answer: "What would you recommend to drink?", hu: "Mit ajánlana inni?" },
+            { requiresSuggest: true, category: "Drinks", filterTag: "vegetarian" },
+            { chef: null, answer: "Thank you for such a lovely meal.", hu: "Köszönöm ezt a csodás ételt." }
+        ]
+    },
+    {
+        name: "Lucas",
+        need: "lactose free",
+        img: "assets/client-lucas.jpg",
+        dialogue: [
+            { chef: "Good afternoon! May I take your order?", answer: "Hello, I am lactose intolerant, please.", hu: "Helló, laktózérzékeny vagyok." },
+            { chef: "What would you like for a starter?", answer: "Do you have a dairy-free starter?", hu: "Van tejmentes előételük?" },
+            { requiresSuggest: true, category: "Starters", filterTag: "lactose free" },
+            { chef: null, answer: "Great, thank you for checking that!", hu: "Remek, köszönöm, hogy utánanézett!" },
+            { chef: "And for your main course?", answer: "Could I have a dairy-free main course?", hu: "Kaphatnék egy tejmentes főételt?" },
+            { requiresSuggest: true, category: "Mains", filterTag: "lactose free" },
+            { chef: null, answer: "Perfect, I trust you completely.", hu: "Tökéletes, teljesen megbízom Önben." },
+            { chef: "Would you like a dessert as well?", answer: "Is there a dessert without any dairy?", hu: "Van desszert tej nélkül?" },
+            { requiresSuggest: true, category: "Desserts", filterTag: "lactose free" },
+            { chef: null, answer: "Lovely, I feel safe eating that.", hu: "Csodás, biztonságban érzem magam ezzel." },
+            { chef: "And to drink?", answer: "What dairy-free drinks do you have?", hu: "Milyen tejmentes italaik vannak?" },
+            { requiresSuggest: true, category: "Drinks", filterTag: "lactose free" },
+            { chef: null, answer: "Thanks for looking after me today.", hu: "Köszönöm, hogy vigyázott rám ma." }
+        ]
+    },
+    {
+        name: "Sophia",
+        need: "light choice",
+        img: "assets/client-sophia.jpg",
+        dialogue: [
+            { chef: "Good afternoon! What can I get you today?", answer: "Hello, I'd like a light meal today.", hu: "Helló, ma könnyű ételt szeretnék." },
+            { chef: "What would you like for a starter?", answer: "Could you show me a light starter?", hu: "Megmutatna egy könnyű előételt?" },
+            { requiresSuggest: true, category: "Starters", filterTag: "light choice" },
+            { chef: null, answer: "That sounds perfect, nice and light.", hu: "Ez tökéletesen hangzik, igazán könnyed." },
+            { chef: "What about your main course?", answer: "What's your lightest main course today?", hu: "Mi a legkönnyebb főételük ma?" },
+            { requiresSuggest: true, category: "Mains", filterTag: "light choice" },
+            { chef: null, answer: "Great, exactly what I was hoping for.", hu: "Remek, pont erre számítottam." },
+            { chef: "Would you like a light dessert too?", answer: "Do you have a light dessert option?", hu: "Van könnyű desszertjük?" },
+            { requiresSuggest: true, category: "Desserts", filterTag: "light choice" },
+            { chef: null, answer: "Perfect, not too heavy at all.", hu: "Tökéletes, egyáltalán nem nehéz." },
+            { chef: "And to drink?", answer: "Could I have a refreshing drink, please?", hu: "Kaphatnék egy frissítő italt, kérem?" },
+            { requiresSuggest: true, category: "Drinks", filterTag: "light choice" },
+            { chef: null, answer: "This is exactly what I wanted, thanks.", hu: "Pont ezt akartam, köszönöm." }
+        ]
+    },
+    {
+        name: "Daniel",
+        need: "nut free",
+        img: "assets/client-daniel.jpg",
+        dialogue: [
+            { chef: "Good afternoon! Table for one, is that right?", answer: "Hello, I have a serious nut allergy.", hu: "Helló, súlyos mogyoróallergiám van." },
+            { chef: "What would you like for a starter?", answer: "Could I have a nut-free starter, please?", hu: "Kaphatnék egy dió- és mogyorómentes előételt?" },
+            { requiresSuggest: true, category: "Starters", filterTag: "nut free" },
+            { chef: null, answer: "Great, are you sure there are no nuts?", hu: "Remek, biztos, hogy nincs benne dió?" },
+            { chef: "And for your main course?", answer: "What nut-free main courses do you have?", hu: "Milyen mogyorómentes főételeik vannak?" },
+            { requiresSuggest: true, category: "Mains", filterTag: "nut free" },
+            { chef: null, answer: "Perfect, thank you for being careful.", hu: "Tökéletes, köszönöm az elővigyázatosságot." },
+            { chef: "Would you like a nut-free dessert too?", answer: "Is there a nut-free dessert today?", hu: "Van ma mogyorómentes desszert?" },
+            { requiresSuggest: true, category: "Desserts", filterTag: "nut free" },
+            { chef: null, answer: "Wonderful, that's such a big relief.", hu: "Csodálatos, ez nagy megkönnyebbülés." },
+            { chef: "And to drink?", answer: "Could I have a nut-free drink, please?", hu: "Kaphatnék egy mogyorómentes italt, kérem?" },
+            { requiresSuggest: true, category: "Drinks", filterTag: "nut free" },
+            { chef: null, answer: "Thanks, I feel completely safe here.", hu: "Köszönöm, teljesen biztonságban érzem magam." }
+        ]
+    },
+    {
+        name: "Marco",
+        need: "meat lover",
+        img: "assets/client-marco.jpg",
+        dialogue: [
+            { chef: "Good afternoon! Hungry today?", answer: "Hi, I really love eating meat!", hu: "Helló, nagyon szeretem a húst enni!" },
+            { chef: "What would you like for a starter?", answer: "What's your meatiest starter today?", hu: "Mi a leghúsosabb előételük ma?" },
+            { requiresSuggest: true, category: "Starters", filterTag: "meat" },
+            { chef: null, answer: "Excellent, that sounds properly meaty!", hu: "Kiváló, ez nagyon húsosnak hangzik!" },
+            { chef: "And your main course?", answer: "Give me your heartiest, meaty main course.", hu: "Adja a leglaktatóbb, húsos főételt." },
+            { requiresSuggest: true, category: "Mains", filterTag: "meat" },
+            { chef: null, answer: "Now that's what I'm talking about!", hu: "Na ez az, amiről beszélek!" },
+            { chef: "Room for a dessert after all that?", answer: "What dessert would go well after that?", hu: "Milyen desszert illik ehhez jól?" },
+            { requiresSuggest: true, category: "Desserts" },
+            { chef: null, answer: "Sounds good, I'll allow it today.", hu: "Jól hangzik, ma megengedem magamnak." },
+            { chef: "And to drink?", answer: "What strong drink would you suggest?", hu: "Milyen erős italt javasolna?" },
+            { requiresSuggest: true, category: "Drinks" },
+            { chef: null, answer: "Perfect, this meal was fantastic, thanks.", hu: "Tökéletes, ez az étel fantasztikus volt, köszönöm." }
+        ]
+    },
+    {
+        name: "Grace",
+        need: "big appetite",
+        img: "assets/client-grace.jpg",
+        dialogue: [
+            { chef: "Good afternoon! Ready to order?", answer: "Hello, I have a huge appetite today!", hu: "Helló, ma nagyon éhes vagyok!" },
+            { chef: "What would you like for a starter?", answer: "Could I have a really filling starter?", hu: "Kaphatnék egy nagyon laktató előételt?" },
+            { requiresSuggest: true, category: "Starters", filterTag: "hearty" },
+            { chef: null, answer: "Great, that looks like a good portion.", hu: "Remek, ez jó adagnak tűnik." },
+            { chef: "And your main course?", answer: "What's your most filling main course?", hu: "Mi a legjobban laktató főételük?" },
+            { requiresSuggest: true, category: "Mains", filterTag: "hearty" },
+            { chef: null, answer: "Excellent, that should really fill me up.", hu: "Kiváló, ez tényleg jóllakat majd." },
+            { chef: "Room for dessert as well?", answer: "Is there room for a big dessert?", hu: "Van hely egy nagy desszertnek?" },
+            { requiresSuggest: true, category: "Desserts" },
+            { chef: null, answer: "Perfect, I've definitely got room for that.", hu: "Tökéletes, arra biztosan van helyem." },
+            { chef: "And to drink?", answer: "Could I have a large drink, please?", hu: "Kaphatnék egy nagy italt, kérem?" },
+            { requiresSuggest: true, category: "Drinks" },
+            { chef: null, answer: "This was the perfect amount, thank you.", hu: "Ez pont a tökéletes mennyiség volt, köszönöm." }
+        ]
+    }
+];
+
+</script>
+    <script>
+let currentCategory = "Starters";
+let currentClient = clients[0];
+let currentTurn = 0;
+
+// ---------------------------------------------------------------------------
+// Printing: a fixed blank menu template image, embedded in the page and
+// hidden on screen, shown only via a print stylesheet.
+// ---------------------------------------------------------------------------
+function printMenu() {
+    window.print();
+}
+
+function escJs(s) {
+    return String(s).replace(/'/g, "\\'");
+}
+
+function playAudio(text, e) {
+    if (e) e.stopPropagation();
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-GB';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+    }
+}
+
+function setMode(mode) {
+    document.getElementById('modeLearn').style.display = mode === 'learn' ? 'grid' : 'none';
+    document.getElementById('modeChef').style.display = mode === 'chef' ? 'grid' : 'none';
+    document.getElementById('modeGapFill').style.display = mode === 'gapfill' ? 'grid' : 'none';
+    document.getElementById('modeMemory').style.display = mode === 'memory' ? 'grid' : 'none';
+    document.getElementById('btnMode1').classList.toggle('active', mode === 'learn');
+    document.getElementById('btnMode2').classList.toggle('active', mode === 'chef');
+    document.getElementById('btnMode3').classList.toggle('active', mode === 'gapfill');
+    document.getElementById('btnMode4').classList.toggle('active', mode === 'memory');
+    if (mode === 'chef') {
+        populateClientSelect('clientSelect');
+        startClient(document.getElementById('clientSelect').value);
+    }
+    if (mode === 'gapfill') {
+        populateClientSelect('gapClientSelect');
+        startGapFill(document.getElementById('gapClientSelect').value);
+    }
+    if (mode === 'memory') {
+        startMemoryGame();
+    }
+}
+
+function onCuisineChange() {
+    renderCategories();
+    if (document.getElementById('modeChef').style.display !== 'none') {
+        startClient(document.getElementById('clientSelect').value);
+    }
+}
+
+function renderCategories() {
+    const tabs = document.getElementById('categoryTabs');
+    tabs.innerHTML = categories.map(cat =>
+        `<button class="cat-btn ${cat === currentCategory ? 'active' : ''}" onclick="selectCategory('${escJs(cat)}')">${cat}</button>`
+    ).join('');
+
+    document.getElementById('catMeaningText').innerText = `${currentCategory}: ${categoryMeanings[currentCategory]}`;
+    renderDishes();
+}
+
+function selectCategory(cat) {
+    currentCategory = cat;
+    renderCategories();
+}
+
+function renderDishes() {
+    const cuis = document.getElementById('cuisineSelect').value;
+    const dishes = (menuData[cuis][currentCategory] || []).slice(0, 4);
+    const grid = document.getElementById('dishGrid');
+
+    grid.innerHTML = dishes.map(d => `
+        <div class="flashcard-container" onclick="this.querySelector('.flashcard').classList.toggle('flipped')">
+            <div class="flashcard">
+                <div class="card-front">
+                    <div class="img-container">
+                        <img src="${d.img}" alt="${d.name}" loading="lazy">
+                        <button class="audio-btn" onclick="playAudio('${escJs(d.name)}', event)" title="Listen Pronunciation">🔊</button>
+                    </div>
+                    <div class="dish-name">${d.name}</div>
+                    <div class="dish-tags">${d.tags.map(t => `<span class="tag-badge">${t}</span>`).join(' ')}</div>
+                </div>
+                <div class="card-back">
+                    <div class="hu-title">${d.hu}</div>
+                    <div class="hu-desc">${d.huDesc}</div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function getAllDishesWithCategory(cuisOverride) {
+    const cuis = cuisOverride || document.getElementById('cuisineSelect').value;
+    let allDishes = [];
+    categories.forEach(c => {
+        (menuData[cuis][c] || []).forEach(d => allDishes.push(Object.assign({}, d, { category: c })));
+    });
+    return allDishes;
+}
+
+function populateClientSelect(selectId) {
+    const sel = document.getElementById(selectId);
+    if (sel.dataset.filled) return;
+    sel.innerHTML = clients.map((c, i) =>
+        `<option value="${i}">${c.name} — ${c.need}</option>`
+    ).join('');
+    sel.dataset.filled = '1';
+}
+
+// ---------------------------------------------------------------------------
+// MODE 2: Chef Roleplay Dialogue (word-ordering inside the chat), now with
+// Back / Next stepping and Show Clue / Show Answer helpers.
+// ---------------------------------------------------------------------------
+let stepSolved = {}; // turnIndex -> true once solved (this session, this client)
+
+function onClientSelectChange() {
+    startClient(document.getElementById('clientSelect').value);
+}
+
+function startClient(indexStr) {
+    currentClient = clients[parseInt(indexStr, 10)];
+    currentTurn = 0;
+    stepSolved = {};
+
+    document.getElementById('clientCard').innerHTML = `
+        <img src="${currentClient.img}" class="client-avatar">
+        <div>
+            <h3>${currentClient.name}</h3>
+            <p style="font-size:0.85rem; margin-top:2px;"><b>What they want:</b> <span style="color:var(--secondary-dark); font-weight:700;">${currentClient.need}</span></p>
+        </div>
+    `;
+
+    document.getElementById('chatLog').innerHTML = '';
+
+    buildDialoguePhraseDecks();
+    addChat('chef', currentClient.dialogue[0].chef);
+    renderOrderingTurn();
+}
+
+function addChat(sender, text) {
+    const log = document.getElementById('chatLog');
+    const msg = document.createElement('div');
+    msg.className = `chat-msg ${sender}`;
+    const icon = sender === 'chef' ? '👨\u200d🍳' : '👤';
+    const label = sender === 'chef' ? 'Waiter' : currentClient.name;
+    msg.innerHTML = `<span class="chat-icon">${icon}</span> ${label}: ${text}`;
+    log.appendChild(msg);
+    log.scrollTop = log.scrollHeight;
+}
+
+// Finds the previous/next guest-turn step index (skipping requiresSuggest steps)
+function findGuestTurnIndex(fromIndex, direction) {
+    let i = fromIndex + direction;
+    while (i >= 0 && i < currentClient.dialogue.length) {
+        if (!currentClient.dialogue[i].requiresSuggest) return i;
+        i += direction;
+    }
+    return -1;
+}
+
+function orderingBack() {
+    const prev = findGuestTurnIndex(currentTurn, -1);
+    if (prev === -1) { alert("You're already at the first question."); return; }
+    currentTurn = prev;
+    refreshPhraseHighlight();
+    renderOrderingTurn();
+}
+
+function orderingNext() {
+    if (!stepSolved[currentTurn]) {
+        alert("Please complete this one first.");
+        return;
+    }
+    const next = findGuestTurnIndex(currentTurn, 1);
+    if (next === -1) { alert("You've reached the last question in this dialogue!"); return; }
+    currentTurn = next;
+    refreshPhraseHighlight();
+    renderOrderingTurn();
+}
+
+function renderOrderingTurn() {
+    const log = document.getElementById('chatLog');
+    const existing = document.getElementById('activeOrderPanel');
+    if (existing) existing.remove();
+
+    const turnData = currentClient.dialogue[currentTurn];
+    if (!turnData || turnData.requiresSuggest) return;
+
+    const panel = document.createElement('div');
+    panel.className = 'chat-choice-panel';
+    panel.id = 'activeOrderPanel';
+    panel.innerHTML = `<p>🧩 Put ${currentClient.name}'s reply in the right order:</p>`;
+    log.appendChild(panel);
+    log.scrollTop = log.scrollHeight;
+
+    buildWordOrderUI(panel, turnData.answer, () => {
+        stepSolved[currentTurn] = true;
+        panel.remove();
+        addChat('client', turnData.answer);
+        currentTurn++;
+        refreshPhraseHighlight();
+        advanceDialogue();
+    });
+}
+
+function advanceDialogue() {
+    if (currentTurn >= currentClient.dialogue.length) {
+        setTimeout(() => {
+            const panel = document.createElement('div');
+            panel.style.cssText = "background:#eafbf7; border:1px solid var(--primary-dark); padding:10px; border-radius:10px; text-align:center; font-weight:700; color:var(--title); margin-top:8px;";
+            panel.innerText = "✅ Dialogue Completed Successfully!";
+            document.getElementById('chatLog').appendChild(panel);
+        }, 500);
+        return;
+    }
+
+    const nextTurn = currentClient.dialogue[currentTurn];
+    if (nextTurn.requiresSuggest) {
+        setTimeout(() => waiterOffersDish(nextTurn), 500);
+    } else if (!nextTurn.chef) {
+        renderOrderingTurn();
+    } else {
+        setTimeout(() => {
+            addChat('chef', nextTurn.chef);
+            renderOrderingTurn();
+        }, 500);
+    }
+}
+
+const OFFER_TEMPLATES = [
+    (course, dish) => `For your ${course}, may I suggest our ${dish}?`,
+    (course, dish) => `How about our ${dish} for your ${course}?`,
+    (course, dish) => `I'd recommend the ${dish} for your ${course}.`,
+    (course, dish) => `The ${dish} would be wonderful for your ${course}.`,
+    (course, dish) => `Our ${dish} is very popular — perfect for your ${course}.`,
+    (course, dish) => `Let me suggest the ${dish} for your ${course}.`,
+];
+const REASON_TEMPLATES = [
+    (tag) => `It's ${tag}, so it's perfect for you.`,
+    (tag) => `It's ${tag} — just what you asked for.`,
+    (tag) => `That one is ${tag}, so you're in good hands.`,
+    (tag) => `It ticks the ${tag} box nicely.`,
+    (tag) => `You'll find it's fully ${tag}.`,
+];
+const NO_TAG_REASONS = [
+    ' I think you will really enjoy it.',
+    " It's one of our favourites here.",
+    ' I have a feeling you will love it.',
+    " It's always a hit with our guests.",
+];
+
+function waiterOffersDish(turnData) {
+    const allDishes = getAllDishesWithCategory();
+    const matches = allDishes.filter(d =>
+        d.category === turnData.category &&
+        (!turnData.filterTag || d.tags.includes(turnData.filterTag))
+    );
+
+    const dish = matches.length
+        ? matches[Math.floor(Math.random() * matches.length)]
+        : null;
+
+    if (dish) {
+        const template = OFFER_TEMPLATES[Math.floor(Math.random() * OFFER_TEMPLATES.length)];
+        const offerLine = template(turnData.category.toLowerCase(), dish.name);
+        let reasonBit;
+        if (turnData.filterTag) {
+            const reasonTemplate = REASON_TEMPLATES[Math.floor(Math.random() * REASON_TEMPLATES.length)];
+            reasonBit = ' ' + reasonTemplate(turnData.filterTag);
+        } else {
+            reasonBit = NO_TAG_REASONS[Math.floor(Math.random() * NO_TAG_REASONS.length)];
+        }
+        addChat('chef', offerLine + reasonBit);
+    } else {
+        addChat('chef', `Let me check with the kitchen about a good ${turnData.category.toLowerCase()} option for you.`);
+    }
+
+    currentTurn++;
+    refreshPhraseHighlight();
+    advanceDialogue();
+}
+
+function showHint() {
+    const turnData = currentClient.dialogue[currentTurn];
+    if (!turnData) return;
+    if (turnData.requiresSuggest) {
+        alert(`Hint: The waiter is about to suggest a ${turnData.category} dish that suits ${currentClient.name}. Just wait a moment!`);
+    } else {
+        alert(`Hint: Look at the words below and build ${currentClient.name}'s reply in order.`);
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Reusable word-tile sentence-ordering widget, with ◀ ▶ move buttons on
+// each placed tile for easy reordering (no need to remove a word just to
+// shift it one place).
+// ---------------------------------------------------------------------------
+function buildWordOrderUI(container, targetSentence, onCorrect) {
+    const tiles = targetSentence.split(' ').map((w, i) => ({ id: i, word: w }));
+    const shuffled = tiles.slice().sort(() => 0.5 - Math.random());
+    let placed = [];
+    let solved = false;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'order-wrap';
+    wrap.innerHTML = `
+        <div class="order-answer-row"></div>
+        <div class="order-word-bank"></div>
+        <div class="order-actions">
+            <button class="order-btn order-check">Check ✅</button>
+            <button class="order-btn order-clear">Clear ↺</button>
+        </div>
+        <div class="order-feedback"></div>
+    `;
+    container.appendChild(wrap);
+
+    const answerRow = wrap.querySelector('.order-answer-row');
+    const bank = wrap.querySelector('.order-word-bank');
+    const feedback = wrap.querySelector('.order-feedback');
+
+    function draw() {
+        answerRow.innerHTML = placed.length
+            ? placed.map((id, pos) => `
+                <span class="placed-tile-wrap">
+                    <button class="tile-move" data-pos="${pos}" data-dir="-1" ${pos === 0 ? 'disabled' : ''}>◀</button>
+                    <button class="word-tile placed" data-id="${id}">${tiles[id].word}</button>
+                    <button class="tile-move" data-pos="${pos}" data-dir="1" ${pos === placed.length - 1 ? 'disabled' : ''}>▶</button>
+                </span>`).join('')
+            : `<span class="order-placeholder">Tap the words below, in order…</span>`;
+        bank.innerHTML = shuffled
+            .filter(t => !placed.includes(t.id))
+            .map(t => `<button class="word-tile" data-id="${t.id}">${t.word}</button>`).join('');
+
+        bank.querySelectorAll('.word-tile').forEach(btn => {
+            btn.onclick = () => { placed.push(parseInt(btn.dataset.id, 10)); feedback.innerText = ''; draw(); };
+        });
+        answerRow.querySelectorAll('.word-tile.placed').forEach(btn => {
+            btn.onclick = () => { placed = placed.filter(id => id !== parseInt(btn.dataset.id, 10)); feedback.innerText = ''; draw(); };
+        });
+        answerRow.querySelectorAll('.tile-move').forEach(btn => {
+            btn.onclick = (e) => {
+                e.stopPropagation();
+                const pos = parseInt(btn.dataset.pos, 10);
+                const dir = parseInt(btn.dataset.dir, 10);
+                const swapWith = pos + dir;
+                if (swapWith < 0 || swapWith >= placed.length) return;
+                [placed[pos], placed[swapWith]] = [placed[swapWith], placed[pos]];
+                draw();
+            };
+        });
+    }
+    draw();
+
+    wrap.querySelector('.order-clear').onclick = () => { placed = []; feedback.innerText = ''; draw(); };
+
+    wrap.querySelector('.order-check').onclick = () => {
+        if (solved) return;
+        const attempt = placed.map(id => tiles[id].word).join(' ');
+        if (attempt === targetSentence) {
+            solved = true;
+            feedback.className = 'order-feedback order-feedback-correct';
+            feedback.innerText = '✅ Correct!';
+            wrap.querySelectorAll('.word-tile, .order-btn, .tile-move').forEach(b => b.disabled = true);
+            setTimeout(onCorrect, 900);
+        } else if (placed.length < tiles.length) {
+            feedback.className = 'order-feedback order-feedback-wrong';
+            feedback.innerText = 'Not finished yet — use all the words!';
+        } else {
+            feedback.className = 'order-feedback order-feedback-wrong';
+            feedback.innerText = '❌ Not quite the right order — try again!';
+        }
+    };
+}
+
+// ---------------------------------------------------------------------------
+// Dynamic phrase flashcards (Mode 2 side panel): built from the CURRENT
+// client's own dialogue only, split into WORDS and PHRASES decks.
+// ---------------------------------------------------------------------------
+let PHRASE_DECKS = {
+    word: { items: [], order: [], index: 0 },
+    phrase: { items: [], order: [], index: 0 }
+};
+
+const KEY_WORDS = [
+    "starter", "main course", "dessert", "drink",
+    "allergy", "vegetarian", "gluten-free", "lactose", "dairy", "nut",
+    "hearty", "light", "filling", "appetite", "meat"
+];
+
+const HU_WORD_LOOKUP = {
+    "starter": "előétel", "main course": "főétel", "dessert": "desszert", "drink": "ital",
+    "allergy": "allergia", "vegetarian": "vegetáriánus", "gluten-free": "gluténmentes",
+    "lactose": "laktóz", "dairy": "tejtermék", "nut": "dió/mogyoró", "hearty": "laktató",
+    "light": "könnyű", "filling": "laktató", "appetite": "étvágy", "meat": "hús"
+};
+
+function shuffledIndices(n) {
+    const arr = Array.from({ length: n }, (_, i) => i);
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function buildDialoguePhraseDecks() {
+    const phrases = [];
+    const seen = new Set();
+    currentClient.dialogue.forEach(step => {
+        if (step.chef && !seen.has(step.chef)) {
+            seen.add(step.chef);
+            phrases.push({ en: step.chef, hu: CHEF_HU[step.chef] || '', speaker: 'waiter' });
+        }
+        if (step.answer && !seen.has(step.answer)) {
+            seen.add(step.answer);
+            phrases.push({ en: step.answer, hu: step.hu || '', speaker: 'guest' });
+        }
+    });
+
+    const allText = phrases.map(p => p.en.toLowerCase()).join(' | ');
+    const words = KEY_WORDS.filter(w => allText.includes(w)).map(w => ({
+        en: w, hu: HU_WORD_LOOKUP[w] || '', type: 'word'
+    }));
+
+    // Also make sure every word used as a correct answer in this guest's
+    // Gap Fill questions is covered here as a flashcard, even if it
+    // doesn't literally appear in the roleplay dialogue lines.
+    const seenWords = new Set(words.map(w => w.en.toLowerCase()));
+    const gapItemsForClient = gapFill[currentClient.name] || [];
+    gapItemsForClient.forEach(item => {
+        const key = (item.answer || '').toLowerCase();
+        if (key && !seenWords.has(key)) {
+            seenWords.add(key);
+            words.push({ en: item.answer, hu: item.hu || '', type: 'word' });
+        }
+    });
+
+    PHRASE_DECKS.word.items = words;
+    PHRASE_DECKS.phrase.items = phrases;
+    resetDeck('word');
+    resetDeck('phrase');
+}
+
+function resetDeck(key) {
+    const deck = PHRASE_DECKS[key];
+    deck.order = shuffledIndices(deck.items.length);
+    deck.index = 0;
+    renderDeckCard(key);
+}
+
+function deckNext(key) {
+    const deck = PHRASE_DECKS[key];
+    if (!deck.order.length) return;
+    deck.index = (deck.index + 1) % deck.order.length;
+    renderDeckCard(key);
+}
+
+function deckBack(key) {
+    const deck = PHRASE_DECKS[key];
+    if (!deck.order.length) return;
+    deck.index = (deck.index - 1 + deck.order.length) % deck.order.length;
+    renderDeckCard(key);
+}
+
+function refreshPhraseHighlight() {
+    renderDeckCard('word');
+    renderDeckCard('phrase');
+}
+
+function renderDeckCard(key) {
+    const deck = PHRASE_DECKS[key];
+    const counterEl = document.getElementById(key + 'Counter');
+    const deckEl = document.getElementById(key + 'Deck');
+    if (!deckEl) return;
+
+    if (!deck.items.length) {
+        counterEl.innerText = '';
+        deckEl.innerHTML = `<p class="deck-empty">No ${key === 'word' ? 'key words' : 'phrases'} for this guest yet.</p>`;
+        return;
+    }
+
+    const p = deck.items[deck.order[deck.index]];
+    counterEl.innerText = `${deck.index + 1} / ${deck.order.length}`;
+    const speakerIcon = p.speaker === 'waiter' ? '👨\u200d🍳' : (p.speaker === 'guest' ? '👤' : '');
+    const speakerName = p.speaker === 'waiter' ? 'Waiter' : (p.speaker === 'guest' ? currentClient.name : '');
+
+    deckEl.innerHTML = `
+        <div class="phrase-card-container" onclick="this.querySelector('.phrase-card').classList.toggle('flipped')">
+            <div class="phrase-card">
+                <div class="phrase-front">
+                    ${speakerIcon ? `<div class="phrase-badge"><span class="phrase-badge-icon">${speakerIcon}</span> ${speakerName}</div>` : ''}
+                    <div class="phrase-front-text">${p.en}</div>
+                    <div class="phrase-hint">tap to flip</div>
+                </div>
+                <div class="phrase-back">${p.hu || '—'}</div>
+            </div>
+        </div>
+    `;
+}
+
+// ---------------------------------------------------------------------------
+// MODE 3: Gap Fill — the guest's line is shown with one word missing;
+// choose the right word from a few options. Back / Next, Show Clue, Show
+// Answer all included. Advances automatically only once correct.
+// ---------------------------------------------------------------------------
+let gapClient = null;
+let gapItems = [];
+let gapIndex = 0;
+let gapSolved = {};
+
+function onGapClientChange() {
+    startGapFill(document.getElementById('gapClientSelect').value);
+}
+
+function startGapFill(indexStr) {
+    gapClient = clients[parseInt(indexStr, 10)];
+    gapItems = gapFill[gapClient.name] || [];
+    gapIndex = 0;
+    gapSolved = {};
+
+    document.getElementById('gapClientCard').innerHTML = `
+        <img src="${gapClient.img}" class="client-avatar">
+        <div>
+            <h3>${gapClient.name}</h3>
+            <p style="font-size:0.85rem; margin-top:2px;"><b>What they want:</b> <span style="color:var(--secondary-dark); font-weight:700;">${gapClient.need}</span></p>
+        </div>
+    `;
+    renderGapStep();
+}
+
+function gapBack() {
+    if (gapIndex === 0) { alert("You're already at the first question."); return; }
+    gapIndex--;
+    renderGapStep();
+}
+
+function gapNext() {
+    if (!gapSolved[gapIndex]) { alert("Please fill the gap correctly first — or press Show Answer."); return; }
+    if (gapIndex >= gapItems.length - 1) { alert("You've reached the last question!"); return; }
+    gapIndex++;
+    renderGapStep();
+}
+
+function renderGapStep() {
+    const box = document.getElementById('gapArea');
+    if (!gapItems.length) {
+        box.innerHTML = `<p class="deck-empty">No gap-fill questions for this guest.</p>`;
+        return;
+    }
+
+    const item = gapItems[gapIndex];
+    const parts = item.sentence.split('___');
+    let solved = gapSolved[gapIndex] === true;
+    let chosen = null;
+
+    const optionsShuffled = item.options.slice().sort(() => 0.5 - Math.random());
+
+    box.innerHTML = `
+        <div class="challenge-progress">Question ${gapIndex + 1} of ${gapItems.length}</div>
+        <div class="gap-sentence" id="gapSentence">${parts[0]}<span class="gap-blank" id="gapBlank">___</span>${parts[1] || ''}</div>
+        <div class="gap-options" id="gapOptions">
+            ${optionsShuffled.map(o => `<button class="gap-option-btn" data-word="${escJs(o)}">${o}</button>`).join('')}
+        </div>
+        <div class="task-nav" style="margin-top:12px;">
+            <button onclick="gapBack()">◀ Back</button>
+            <button onclick="gapNext()">Next ▶</button>
+        </div>
+        <div class="order-actions" style="margin-top:10px;">
+            <button class="order-btn order-clue" id="gapClueBtn">💡 Show Clue</button>
+            <button class="order-btn order-answer-btn" id="gapAnswerBtn">👀 Show Answer</button>
+        </div>
+        <div class="order-feedback" id="gapFeedback"></div>
+    `;
+
+    const blankEl = document.getElementById('gapBlank');
+    const feedback = document.getElementById('gapFeedback');
+
+    document.querySelectorAll('.gap-option-btn').forEach(btn => {
+        btn.onclick = () => {
+            if (solved) return;
+            document.querySelectorAll('.gap-option-btn').forEach(b => b.classList.remove('gap-selected'));
+            btn.classList.add('gap-selected');
+            chosen = btn.dataset.word;
+            blankEl.innerText = chosen;
+
+            if (chosen === item.answer) {
+                solved = true;
+                gapSolved[gapIndex] = true;
+                blankEl.classList.add('gap-correct');
+                feedback.className = 'order-feedback order-feedback-correct';
+                feedback.innerText = '✅ Correct!';
+                document.querySelectorAll('.gap-option-btn').forEach(b => b.disabled = true);
+            } else {
+                blankEl.classList.add('gap-wrong');
+                feedback.className = 'order-feedback order-feedback-wrong';
+                feedback.innerText = '❌ Not quite — try another word!';
+                setTimeout(() => { blankEl.innerText = '___'; blankEl.classList.remove('gap-wrong'); }, 700);
+            }
+        };
+    });
+
+    document.getElementById('gapClueBtn').onclick = () => {
+        feedback.className = 'order-feedback';
+        feedback.innerText = `💡 Clue: the word starts with "${item.answer[0].toUpperCase()}" and has ${item.answer.length} letters.`;
+    };
+
+    document.getElementById('gapAnswerBtn').onclick = () => {
+        if (solved) return;
+        solved = true;
+        gapSolved[gapIndex] = true;
+        blankEl.innerText = item.answer;
+        blankEl.classList.add('gap-correct');
+        feedback.className = 'order-feedback order-feedback-correct';
+        feedback.innerText = 'Here is the answer.';
+        document.querySelectorAll('.gap-option-btn').forEach(b => b.disabled = true);
+    };
+}
+
+// ---------------------------------------------------------------------------
+// MODE 4: Memory Game — match each dish's photo card with its name card,
+// using the currently selected cuisine's food and drink dishes.
+// ---------------------------------------------------------------------------
+let memoryFlipped = [];
+let memoryMatched = [];
+let memoryCards = [];
+let memoryLock = false;
+let memoryMoves = 0;
+
+function startMemoryGame() {
+    populateMemoryCuisineSelect();
+    newMemoryGame();
+}
+
+function populateMemoryCuisineSelect() {
+    const sel = document.getElementById('memoryCuisineSelect');
+    if (sel.dataset.filled) return;
+    sel.innerHTML = `
+        <option value="Italian">Italian 🇮🇹</option>
+        <option value="French">French 🇫🇷</option>
+        <option value="Mexican">Mexican 🇲🇽</option>
+        <option value="Greek">Greek 🇬🇷</option>
+    `;
+    sel.dataset.filled = '1';
+}
+
+function newMemoryGame() {
+    const cuis = document.getElementById('memoryCuisineSelect').value;
+    const foodAndDrink = getAllDishesWithCategory(cuis).filter(d => d.category === 'Desserts' || d.category === 'Drinks' || d.category === 'Mains' || d.category === 'Starters');
+    const pairCount = Math.min(foodAndDrink.length, 12);
+    const shuffledDishes = foodAndDrink.slice().sort(() => 0.5 - Math.random()).slice(0, pairCount);
+
+    let cardId = 0;
+    memoryCards = [];
+    shuffledDishes.forEach((d, pairIndex) => {
+        memoryCards.push({ id: cardId++, pairIndex, kind: 'image', dish: d });
+        memoryCards.push({ id: cardId++, pairIndex, kind: 'name', dish: d });
+    });
+    memoryCards.sort(() => 0.5 - Math.random());
+
+    memoryFlipped = [];
+    memoryMatched = [];
+    memoryLock = false;
+    memoryMoves = 0;
+    renderMemoryBoard();
+}
+
+function renderMemoryBoard() {
+    const board = document.getElementById('memoryBoard');
+    document.getElementById('memoryMoves').innerText = `Moves: ${memoryMoves}`;
+    board.innerHTML = memoryCards.map(c => {
+        const isUp = memoryFlipped.includes(c.id) || memoryMatched.includes(c.pairIndex);
+        const content = c.kind === 'image'
+            ? `<img src="${c.dish.img}" alt="${c.dish.name}">`
+            : `<span class="memory-name">${c.dish.name}</span>`;
+        return `
+        <div class="memory-card ${isUp ? 'memory-up' : ''} ${memoryMatched.includes(c.pairIndex) ? 'memory-matched' : ''}" onclick="flipMemoryCard(${c.id})">
+            <div class="memory-card-inner">
+                <div class="memory-card-front">❓</div>
+                <div class="memory-card-back">${content}</div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function flipMemoryCard(id) {
+    if (memoryLock) return;
+    const card = memoryCards.find(c => c.id === id);
+    if (!card || memoryFlipped.includes(id) || memoryMatched.includes(card.pairIndex)) return;
+
+    memoryFlipped.push(id);
+    renderMemoryBoard();
+
+    if (memoryFlipped.length === 2) {
+        memoryMoves++;
+        memoryLock = true;
+        const [id1, id2] = memoryFlipped;
+        const c1 = memoryCards.find(c => c.id === id1);
+        const c2 = memoryCards.find(c => c.id === id2);
+
+        if (c1.pairIndex === c2.pairIndex) {
+            memoryMatched.push(c1.pairIndex);
+            memoryFlipped = [];
+            memoryLock = false;
+            renderMemoryBoard();
+            if (memoryMatched.length === memoryCards.length / 2) {
+                setTimeout(() => {
+                    document.getElementById('memoryStatus').innerText = `🏆 Well done! You matched everything in ${memoryMoves} moves.`;
+                }, 300);
+            }
+        } else {
+            setTimeout(() => {
+                memoryFlipped = [];
+                memoryLock = false;
+                renderMemoryBoard();
+            }, 900);
+        }
+    }
+}
+
+function startHeroJourney() {
+    document.getElementById('hero-landing').classList.add('hidden-layout-state');
+    document.getElementById('main-app-content').classList.remove('hidden-layout-state');
+}
+
+window.onload = () => {
+    renderCategories();
+};
+
+</script>
+</body>
+</html>
